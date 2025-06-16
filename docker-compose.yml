@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+    practica_postgres:
+        image: postgis/postgis:17-3.5
+        platform: linux/amd64
+        container_name: practica_postgres
+        environment:
+            POSTGRES_DB: practica_db
+            POSTGRES_USER: practica_user
+            POSTGRES_PASSWORD: practica_pass
+        ports:
+            - '6432:5432'
+        volumes:
+            - ./postgresql:/var/lib/postgresql/data
+            - ./database/initdb.d:/docker-entrypoint-initdb.d
+
+    practica_redis:
+        image: redis:6
+        container_name: practica_redis
+        ports:
+            - '6433:6379'
