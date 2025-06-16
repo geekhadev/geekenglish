@@ -39,74 +39,76 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
-        $user = User::where('id', $request->user()->id)->with('pointsHistory')->first();
         $pointsStats = null;
+        if(isset($request->user()->id)) {
+            $user = User::where('id', $request->user()->id)->with('pointsHistory')->first();
 
-        if ($user) {
-            // Get total points
-            $totalPoints = $user->pointsHistory()->sum('points');
+            if ($user) {
+                // Get total points
+                $totalPoints = $user->pointsHistory()->sum('points');
 
-            // Get points by type
-            $pointsByType = $user->pointsHistory()
-                ->selectRaw('type, SUM(points) as total_points')
-                ->groupBy('type')
-                ->get();
+                // Get points by type
+                $pointsByType = $user->pointsHistory()
+                    ->selectRaw('type, SUM(points) as total_points')
+                    ->groupBy('type')
+                    ->get();
 
-            // Get points by activity
-            $pointsByActivity = $user->pointsHistory()
-                ->selectRaw('activity, SUM(points) as total_points')
-                ->groupBy('activity')
-                ->get();
+                // Get points by activity
+                $pointsByActivity = $user->pointsHistory()
+                    ->selectRaw('activity, SUM(points) as total_points')
+                    ->groupBy('activity')
+                    ->get();
 
-            // Get max streak by activity
-            $maxStreakByActivity = DB::table('user_points_history')
-                ->selectRaw('activity, MAX(streak) as max_streak')
-                ->fromSub(function ($query) use ($user) {
-                    $query->selectRaw('
-                        activity,
-                        status,
-                        created_at,
-                        SUM(CASE WHEN status = \'success\' THEN 1 ELSE 0 END) OVER (
-                            PARTITION BY activity, grp
-                            ORDER BY created_at
-                        ) as streak
-                    ')
-                    ->fromSub(function ($subquery) use ($user) {
-                        $subquery->selectRaw('
-                            *,
-                            SUM(CASE WHEN status = \'success\' THEN 0 ELSE 1 END) OVER (
-                                PARTITION BY activity
+                // Get max streak by activity
+                $maxStreakByActivity = DB::table('user_points_history')
+                    ->selectRaw('activity, MAX(streak) as max_streak')
+                    ->fromSub(function ($query) use ($user) {
+                        $query->selectRaw('
+                            activity,
+                            status,
+                            created_at,
+                            SUM(CASE WHEN status = \'success\' THEN 1 ELSE 0 END) OVER (
+                                PARTITION BY activity, grp
                                 ORDER BY created_at
-                            ) as grp
+                            ) as streak
                         ')
-                        ->from('user_points_history')
-                        ->where('user_id', $user->id);
-                    }, 'grouped');
-                }, 'streaks')
-                ->groupBy('activity')
-                ->get();
+                        ->fromSub(function ($subquery) use ($user) {
+                            $subquery->selectRaw('
+                                *,
+                                SUM(CASE WHEN status = \'success\' THEN 0 ELSE 1 END) OVER (
+                                    PARTITION BY activity
+                                    ORDER BY created_at
+                                ) as grp
+                            ')
+                            ->from('user_points_history')
+                            ->where('user_id', $user->id);
+                        }, 'grouped');
+                    }, 'streaks')
+                    ->groupBy('activity')
+                    ->get();
 
-            // Get recent activity
-            $recentActivity = $user->pointsHistory()
-                ->with('user')
-                ->latest()
-                ->take(10)
-                ->get();
+                // Get recent activity
+                $recentActivity = $user->pointsHistory()
+                    ->with('user')
+                    ->latest()
+                    ->take(10)
+                    ->get();
 
-            $pointsStats = [
-                'totalPoints' => $totalPoints,
-                'pointsByType' => $pointsByType,
-                'pointsByActivity' => $pointsByActivity,
-                'maxStreakByActivity' => $maxStreakByActivity,
-                'recentActivity' => $recentActivity
-            ];
+                $pointsStats = [
+                    'totalPoints' => $totalPoints,
+                    'pointsByType' => $pointsByType,
+                    'pointsByActivity' => $pointsByActivity,
+                    'maxStreakByActivity' => $maxStreakByActivity,
+                    'recentActivity' => $recentActivity
+                ];
+            }
         }
 
         return [
             ...parent::share($request),
             'name' => config('app.name'),
             'auth' => [
-                'user' => $user,
+                'user' => $user ?? null,
             ],
             'points' => $pointsStats ?? 'null',
             'ziggy' => fn (): array => [
