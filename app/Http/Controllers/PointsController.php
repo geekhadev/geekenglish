@@ -1,45 +1,18 @@
 <?php
 
-namespace App\Http\Middleware;
+namespace App\Http\Controllers;
 
-use Illuminate\Foundation\Inspiring;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Inertia\Middleware;
-use Tighten\Ziggy\Ziggy;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
 
-class HandleInertiaRequests extends Middleware
+class PointsController extends Controller
 {
-    /**
-     * The root template that's loaded on the first page visit.
-     *
-     * @see https://inertiajs.com/server-side-setup#root-template
-     *
-     * @var string
-     */
-    protected $rootView = 'app';
-
-    /**
-     * Determines the current asset version.
-     *
-     * @see https://inertiajs.com/asset-versioning
-     */
-    public function version(Request $request): ?string
+    public function index()
     {
-        return parent::version($request);
-    }
-
-    /**
-     * Define the props that are shared by default.
-     *
-     * @see https://inertiajs.com/shared-data
-     *
-     * @return array<string, mixed>
-     */
-    public function share(Request $request): array
-    {
-        $user = User::where('id', $request->user()->id)->with('pointsHistory')->first();
+        $user = User::where('id', Auth::user()->id)->with('pointsHistory')->first();
         $pointsStats = null;
 
         if ($user) {
@@ -102,18 +75,36 @@ class HandleInertiaRequests extends Middleware
             ];
         }
 
-        return [
-            ...parent::share($request),
-            'name' => config('app.name'),
-            'auth' => [
-                'user' => $user,
-            ],
-            'points' => $pointsStats ?? 'null',
-            'ziggy' => fn (): array => [
-                ...(new Ziggy)->toArray(),
-                'location' => $request->url(),
-            ],
-            'sidebarOpen' => ! $request->hasCookie('sidebar_state') || $request->cookie('sidebar_state') === 'true',
-        ];
+        return response()->json($pointsStats);
+    }
+
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'type' => 'required|string',
+            'activity' => 'required|string',
+            'status' => 'required|string|in:success,failure',
+        ]);
+
+        // Get points value from point types table
+        $pointType = \App\Models\PointType::where('type', $validated['type'])
+            ->where('activity', $validated['activity'])
+            ->first();
+
+        if (!$pointType) {
+            return response()->json(['error' => 'Point type not found'], 404);
+        }
+
+        // Only award points for successful attempts
+        $points = $validated['status'] === 'success' ? $pointType->points_value : 0;
+
+        $request->user()->pointsHistory()->create([
+            'type' => $validated['type'],
+            'activity' => $validated['activity'],
+            'status' => $validated['status'],
+            'points' => $points,
+        ]);
+
+        return response()->json(['message' => 'Points recorded successfully']);
     }
 }

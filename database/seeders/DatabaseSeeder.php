@@ -18,5 +18,9 @@ class DatabaseSeeder extends Seeder
             'email' => 'khalisser@gmail.com',
             'password' => Hash::make('qwerty123'),
         ]);
+
+        $this->call([
+            PointTypeSeeder::class,
+        ]);
     }
 }
