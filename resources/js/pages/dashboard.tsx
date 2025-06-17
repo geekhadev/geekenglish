@@ -23,7 +23,7 @@ const events = [
         title: 'The importance of drinking water',
         description: '@juancho will give a presentation on the importance of drinking water throughout the day and the effects of not doing so.',
         calendar: 'The event is on June 19 at 21:00 Colombia',
-        users: 122,
+        users: 8,
     },
 ];
 

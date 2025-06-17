@@ -29,26 +29,12 @@ export interface SharedData {
     ziggy: Config & { location: string };
     sidebarOpen: boolean;
     points?: {
-        totalPoints: number;
-        pointsByType: Array<{
-            type: string;
-            total_points: number;
-        }>;
-        pointsByActivity: Array<{
+        total_points: number;
+        points_by_level: Array<{
             activity: string;
+            level: number;
             total_points: number;
-        }>;
-        maxStreakByActivity: Array<{
-            activity: string;
             max_streak: number;
-        }>;
-        recentActivity: Array<{
-            id: number;
-            type: string;
-            activity: string;
-            status: string;
-            points: number;
-            created_at: string;
         }>;
     };
     [key: string]: unknown;

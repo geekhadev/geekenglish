@@ -42,65 +42,53 @@ class HandleInertiaRequests extends Middleware
         if (isset($request->user()->id)) {
             $user = User::where('id', $request->user()->id)->with('pointsHistory')->first();
 
-            if ($user) {
-                // Get total points
-                $totalPoints = $user->pointsHistory()->sum('points');
+            $totalPoints = $user->pointsHistory()->sum('points');
 
-                // Get points by type
-                $pointsByType = $user->pointsHistory()
-                    ->selectRaw('type, SUM(points) as total_points')
-                    ->groupBy('type')
-                    ->get();
+            // Get count of points by level for each activity
+            $pointsByLevel = DB::table('user_points_history')
+                ->selectRaw('activity, level, SUM(points) as total_points')
+                ->groupBy('activity', 'level')
+                ->get();
 
-                // Get points by activity
-                $pointsByActivity = $user->pointsHistory()
-                    ->selectRaw('activity, SUM(points) as total_points')
-                    ->groupBy('activity')
-                    ->get();
-
-                // Get max streak by activity
-                $maxStreakByActivity = DB::table('user_points_history')
-                    ->selectRaw('activity, MAX(streak) as max_streak')
-                    ->fromSub(function ($query) use ($user) {
-                        $query->selectRaw('
-                            activity,
-                            status,
-                            created_at,
-                            SUM(CASE WHEN status = \'success\' THEN 1 ELSE 0 END) OVER (
-                                PARTITION BY activity, grp
+            $maxStreakByActivity = DB::table('user_points_history')
+                ->selectRaw('activity, MAX(streak) as max_streak')
+                ->fromSub(function ($query) use ($user) {
+                    $query->selectRaw('
+                        activity,
+                        status,
+                        created_at,
+                        SUM(CASE WHEN status = \'success\' THEN 1 ELSE 0 END) OVER (
+                            PARTITION BY activity, grp
+                            ORDER BY created_at
+                        ) as streak
+                    ')
+                        ->fromSub(function ($subquery) use ($user) {
+                            $subquery->selectRaw('
+                            *,
+                            SUM(CASE WHEN status = \'success\' THEN 0 ELSE 1 END) OVER (
+                                PARTITION BY activity
                                 ORDER BY created_at
-                            ) as streak
+                            ) as grp
                         ')
-                            ->fromSub(function ($subquery) use ($user) {
-                                $subquery->selectRaw('
-                                *,
-                                SUM(CASE WHEN status = \'success\' THEN 0 ELSE 1 END) OVER (
-                                    PARTITION BY activity
-                                    ORDER BY created_at
-                                ) as grp
-                            ')
-                                    ->from('user_points_history')
-                                    ->where('user_id', $user->id);
-                            }, 'grouped');
-                    }, 'streaks')
-                    ->groupBy('activity')
-                    ->get();
+                                ->from('user_points_history')
+                                ->where('user_id', $user->id);
+                        }, 'grouped');
+                }, 'streaks')
+                ->groupBy('activity')
+                ->get();
 
-                // Get recent activity
-                $recentActivity = $user->pointsHistory()
-                    ->with('user')
-                    ->latest()
-                    ->take(10)
-                    ->get();
-
-                $pointsStats = [
-                    'totalPoints' => $totalPoints,
-                    'pointsByType' => $pointsByType,
-                    'pointsByActivity' => $pointsByActivity,
-                    'maxStreakByActivity' => $maxStreakByActivity,
-                    'recentActivity' => $recentActivity,
-                ];
+            foreach ($pointsByLevel as $pointByLevel) {
+                foreach ($maxStreakByActivity as $maxStreak) {
+                    if ($maxStreak->activity === $pointByLevel->activity) {
+                        $pointByLevel->max_streak = $maxStreak->max_streak;
+                    }
+                }
             }
+
+            $pointsStats = [
+                'total_points' => $totalPoints,
+                'points_by_level' => $pointsByLevel,
+            ];
         }
 
         return [

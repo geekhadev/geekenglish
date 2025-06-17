@@ -14,42 +14,44 @@ class PointsController extends Controller
         [
             'type' => 'game',
             'name' => 'number',
-            'levels' => '2',
+            'levels' => [
+                1 => 10,
+                2 => 10,
+                3 => 80,
+                4 => -1,
+            ],
         ],
         [
             'type' => 'game',
             'name' => 'alphabet',
-            'levels' => '1',
+            'levels' => [
+                1 => -1,
+            ],
         ],
         [
             'type' => 'game',
             'name' => 'verb',
-            'levels' => '1',
+            'levels' => [
+                1 => -1,
+            ],
         ],
     ];
 
     public function index()
     {
-        $user = User::where('id', Auth::user()->id)->with('pointsHistory')->first();
+        $user = User::with('pointsHistory')->first();
         $pointsStats = null;
 
         if ($user) {
             // Get total points
             $totalPoints = $user->pointsHistory()->sum('points');
 
-            // Get points by type
-            $pointsByType = $user->pointsHistory()
-                ->selectRaw('type, SUM(points) as total_points')
-                ->groupBy('type')
+            // Get count of points by level for each activity
+            $pointsByLevel = DB::table('user_points_history')
+                ->selectRaw('activity, level, SUM(points) as total_points')
+                ->groupBy('activity', 'level')
                 ->get();
 
-            // Get points by activity
-            $pointsByActivity = $user->pointsHistory()
-                ->selectRaw('activity, SUM(points) as total_points')
-                ->groupBy('activity')
-                ->get();
-
-            // Get max streak by activity
             $maxStreakByActivity = DB::table('user_points_history')
                 ->selectRaw('activity, MAX(streak) as max_streak')
                 ->fromSub(function ($query) use ($user) {
@@ -77,19 +79,18 @@ class PointsController extends Controller
                 ->groupBy('activity')
                 ->get();
 
-            // Get recent activity
-            $recentActivity = $user->pointsHistory()
-                ->with('user')
-                ->latest()
-                ->take(10)
-                ->get();
+            foreach ($pointsByLevel as $pointByLevel) {
+                foreach ($maxStreakByActivity as $maxStreak) {
+                    if ($maxStreak->activity === $pointByLevel->activity) {
+                        dd($pointByLevel, $maxStreak);
+                        $pointByLevel->max_streak = $maxStreak->max_streak;
+                    }
+                }
+            }
 
             $pointsStats = [
-                'totalPoints' => $totalPoints,
-                'pointsByType' => $pointsByType,
-                'pointsByActivity' => $pointsByActivity,
-                'maxStreakByActivity' => $maxStreakByActivity,
-                'recentActivity' => $recentActivity,
+                'total_points' => $totalPoints,
+                'points_by_level' => $pointsByLevel,
             ];
         }
 
@@ -113,6 +114,7 @@ class PointsController extends Controller
             'type' => $validated['type'],
             'activity' => $validated['activity'],
             'value' => $validated['value'],
+            'level' => $validated['level'],
             'status' => 'success',
         ])->exists();
 
@@ -123,6 +125,7 @@ class PointsController extends Controller
         $request->user()->pointsHistory()->create([
             'type' => $validated['type'],
             'activity' => $validated['activity'],
+            'level' => $validated['level'],
             'status' => $validated['status'],
             'value' => $validated['value'],
             'counted' => $counted,

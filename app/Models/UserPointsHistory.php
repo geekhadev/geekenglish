@@ -15,6 +15,7 @@ class UserPointsHistory extends Model
         'user_id',
         'type',
         'activity',
+        'level',
         'status',
         'value',
         'counted',

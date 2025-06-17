@@ -44,7 +44,9 @@ export default function TranslationGame({
     const page = usePage<SharedData>();
     const { points } = page.props;
 
-    const maxStreak = points?.maxStreakByActivity.find((item) => item.activity === gameType)?.max_streak ?? 0;
+    const points_activity = points?.points_by_level.find((point_by_level) => point_by_level.activity === gameType);
+    const maxStreak = points_activity?.max_streak ?? 0;
+    const currentLevel = points_activity?.level ?? 0;
 
     const TIME_LIMIT = timeLimit;
     const TIMER_INTERVAL = 1000; // Cambiado a 1 segundo
@@ -244,7 +246,7 @@ export default function TranslationGame({
                     {maxStreak > 0 && <p className="text-lg text-muted-foreground">Your record is: {maxStreak}</p>}
                     <div className="flex justify-between rounded-full bg-lime-500 p-2 px-4 font-bold text-balance text-white">
                         <p>
-                            Score: {score.correct}/{score.total}
+                            Score: {score.correct}/{score.total} - Level: {currentLevel}
                         </p>
                     </div>
                 </div>
