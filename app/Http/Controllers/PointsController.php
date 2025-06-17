@@ -10,6 +10,24 @@ use Illuminate\Support\Facades\DB;
 
 class PointsController extends Controller
 {
+    public $activities = [
+        [
+            'type' => 'game',
+            'name' => 'number',
+            'levels' => '2',
+        ],
+        [
+            'type' => 'game',
+            'name' => 'alphabet',
+            'levels' => '1',
+        ],
+        [
+            'type' => 'game',
+            'name' => 'verb',
+            'levels' => '1',
+        ],
+    ];
+
     public function index()
     {
         $user = User::where('id', Auth::user()->id)->with('pointsHistory')->first();
@@ -85,16 +103,9 @@ class PointsController extends Controller
             'activity' => 'required|string',
             'status' => 'required|string|in:success,failure',
             'value' => 'required|string',
+            'points' => 'required|integer',
+            'level' => 'required|integer',
         ]);
-
-        // Get points value from point types table
-        $pointType = \App\Models\PointType::where('type', $validated['type'])
-            ->where('activity', $validated['activity'])
-            ->first();
-
-        if (! $pointType) {
-            return response()->json(['error' => 'Point type not found'], 404);
-        }
 
         // Check if user has already succeeded with this value for this activity
         $alreadySucceeded = UserPointsHistory::where([
@@ -107,7 +118,7 @@ class PointsController extends Controller
 
         // Only count points if it's a success and hasn't been done before
         $counted = !$alreadySucceeded;
-        $points = ($validated['status'] === 'success' && $counted) ? $pointType->points_value : 0;
+        $points = ($validated['status'] === 'success' && $counted) ? $validated['points'] : 0;
 
         $request->user()->pointsHistory()->create([
             'type' => $validated['type'],

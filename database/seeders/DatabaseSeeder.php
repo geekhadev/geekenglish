@@ -26,10 +26,6 @@ class DatabaseSeeder extends Seeder
             'email_verified_at' => now(),
         ]);
 
-        // User::factory()->count(10)->create();
-
-        $this->call([
-            PointTypeSeeder::class,
-        ]);
+        $this->call([]);
     }
 }

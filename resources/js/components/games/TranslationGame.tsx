@@ -6,6 +6,8 @@ import { useEffect, useRef, useState } from 'react';
 export interface TranslationItem {
     value: string | number;
     translation: string;
+    level?: number;
+    points?: number;
 }
 
 interface TranslationGameProps {
@@ -166,6 +168,8 @@ export default function TranslationGame({
                 activity: gameType,
                 status: status,
                 value: currentItem?.value.toString() ?? '',
+                points: currentItem?.points ?? 0,
+                level: currentItem?.level ?? 0,
             });
         } catch (error) {
             console.error('Error sending score:', error);
