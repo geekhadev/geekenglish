@@ -52,7 +52,7 @@ export default function Dashboard() {
                     </div>
                     <div className="relative overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border">
                         <Link href="#">
-                            <img src="/games/prepositions.png" alt="Prepositions" className="w-full h-full object-cover" />
+                            <img src="/games/vocabulary.png" alt="Vocabulary" className="w-full h-full object-cover" />
                         </Link>
                         <div className="absolute inset-0 flex items-end pb-12 justify-center bg-gradient-to-b from-black/40 to-black/100">
                             <p className="text-white text-2xl font-bold">Coming soon</p>

@@ -1,8 +1,11 @@
 <?php
 
+use App\Http\Controllers\PointsController;
 use App\Http\Controllers\Games\NumberController;
 use App\Http\Controllers\Games\AlphabetController;
-use App\Http\Controllers\PointsController;
+use App\Http\Controllers\Apps\ReadController;
+use App\Http\Controllers\Apps\DictationController;
+use App\Http\Controllers\Apps\VideoController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -22,6 +25,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('points', [PointsController::class, 'index'])->name('points.index');
     Route::post('points', [PointsController::class, 'store'])->name('points.store');
+
+    Route::prefix('apps')->group(function () {
+        Route::get('/read', [ReadController::class, 'index'])->name('apps.read');
+        Route::get('/dictation', [DictationController::class, 'index'])->name('apps.dictation');
+        Route::get('/video', [VideoController::class, 'index'])->name('apps.video');
+    });
 });
 
 require __DIR__.'/settings.php';

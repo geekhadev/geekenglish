@@ -4,7 +4,7 @@ import { NavUser } from '@/components/nav-user';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
 import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/react';
-import { Folder, LayoutGrid, Users } from 'lucide-react';
+import { BookOpen, Folder, LayoutGrid, Signature, Users, Video } from 'lucide-react';
 import AppLogo from './app-logo';
 
 const mainNavItems: NavItem[] = [
@@ -17,6 +17,21 @@ const mainNavItems: NavItem[] = [
         title: 'Buscar compañero',
         href: '#',
         icon: Users,
+    },
+    {
+        title: 'Readings',
+        href: '/apps/read',
+        icon: BookOpen,
+    },
+    {
+        title: 'Dictation',
+        href: '/apps/dictation',
+        icon: Signature,
+    },
+    {
+        title: 'Videos',
+        href: '/apps/video',
+        icon: Video,
     },
 ];
 
