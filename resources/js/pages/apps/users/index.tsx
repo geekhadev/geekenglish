@@ -18,7 +18,7 @@ const breadcrumbs: BreadcrumbItem[] = [
         href: '/apps',
     },
     {
-        title: 'Users',
+        title: 'Study partners',
         href: '/apps/users',
     },
 ];
@@ -48,10 +48,6 @@ export default function Index({ users }: { users: User[] }) {
                     <div className="mt-12 w-full grid grid-cols-1 md:grid-cols-5 gap-4">
                         {users.map((user) => (
                             <>
-                            <CardUser key={user.id} user={user} />
-                            <CardUser key={user.id} user={user} />
-                            <CardUser key={user.id} user={user} />
-                            <CardUser key={user.id} user={user} />
                             <CardUser key={user.id} user={user} />
                             </>
                         ))}
@@ -83,8 +79,8 @@ function CardUser({ user }: { user: User }) {
                 </div>
             </CardHeader>
             <CardFooter className="flex gap-2 justify-between">
-                <Button className="w-full cursor-pointer" variant="outline">Follow</Button>
-                <Button className="w-full cursor-pointer" variant="outline">Invite to practice</Button>
+                <Button size="sm" className="w-full cursor-pointer" variant="outline">Follow</Button>
+                <Button size="sm" className="w-full cursor-pointer" variant="outline">Invite to practice</Button>
             </CardFooter>
         </Card>
     )
