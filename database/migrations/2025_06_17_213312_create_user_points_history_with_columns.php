@@ -16,6 +16,9 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->string('type'); // game, quiz, etc
             $table->string('activity'); // number, alphabet, etc
+            $table->string('value')->nullable();
+            $table->boolean('counted')->default(true);
+            $table->integer('level')->nullable();
             $table->string('status'); // success, failure
             $table->integer('points');
             $table->timestamps();
