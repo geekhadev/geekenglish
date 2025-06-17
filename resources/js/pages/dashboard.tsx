@@ -26,6 +26,14 @@ export default function Dashboard() {
                             <img src="/games/alphabet.png" alt="Alphabet" className="w-full h-full object-cover" />
                         </Link>
                     </div>
+                    <div className="relative overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border">
+                        <Link href="#">
+                            <img src="/games/verbs.png" alt="Verbs" className="w-full h-full object-cover" />
+                        </Link>
+                        <div className="absolute inset-0 flex items-end pb-12 justify-center bg-black/70 bg-gradient-to-b from-black/0 to-black/90">
+                            <p className="text-white text-2xl font-bold">Coming soon</p>
+                        </div>
+                    </div>
                 </div>
                 <div className="relative min-h-[100vh] flex-1 overflow-hidden rounded-xl border border-sidebar-border/70 md:min-h-min dark:border-sidebar-border">
                     <PlaceholderPattern className="absolute inset-0 size-full stroke-neutral-900/20 dark:stroke-neutral-100/20" />

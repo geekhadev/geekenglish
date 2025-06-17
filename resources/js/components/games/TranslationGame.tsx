@@ -246,7 +246,7 @@ export default function TranslationGame({
             </div>
 
             <div className="grid grid-cols-2 gap-4 w-full h-full">
-                <div className="flex items-center justify-center text-9xl font-bold text-primary border-r border-gray-200">{currentItem.value}</div>
+                <div className="flex items-center justify-center text-9xl font-bold text-primary border-r">{currentItem.value}</div>
 
                 <div className="flex flex-col gap-4 w-full h-full items-end justify-between">
                     <div className={`w-full text-4xl text-balance text-center max-w-2xl ${isCorrect ? 'text-lime-500' : 'text-orange-500'}`}>
@@ -270,7 +270,7 @@ export default function TranslationGame({
                             <div className="flex flex-col w-48 text-balance justify-end">
                                 <button
                                     onClick={checkAnswer}
-                                    className="px-6 py-2 text-black min-h-[67px] min-w-48 font-bold text-xl border-gray-200 border-1 hover:border-lime-500 cursor-pointer"
+                                    className="px-6 py-2 min-h-[67px] min-w-48 font-bold text-xl border-1 hover:border-lime-500 cursor-pointer"
                                     disabled={!hasAnswered && !userAnswer.trim()}
                                 >
                                     {hasAnswered ? 'Next' : 'Check Answer'}
