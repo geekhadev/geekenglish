@@ -82,7 +82,6 @@ class PointsController extends Controller
             foreach ($pointsByLevel as $pointByLevel) {
                 foreach ($maxStreakByActivity as $maxStreak) {
                     if ($maxStreak->activity === $pointByLevel->activity) {
-                        dd($pointByLevel, $maxStreak);
                         $pointByLevel->max_streak = $maxStreak->max_streak;
                     }
                 }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ChatGptController;
 use App\Http\Controllers\Apps\DictationController;
 use App\Http\Controllers\Apps\ReadController;
 use App\Http\Controllers\Apps\UserController;
@@ -42,6 +43,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/users/{requestFriend}/friend-request/accept', [UserController::class, 'acceptFriendRequest'])->name('users.friend-request.accept');
     Route::post('/users/{requestFriend}/friend-request/reject', [UserController::class, 'rejectFriendRequest'])->name('users.friend-request.reject');
     Route::post('/users/{requestFriend}/friend-request/remove', [UserController::class, 'removeFriendRequest'])->name('users.friend-request.remove');
+
+    Route::get('/dictation', [ChatGptController::class, 'dictation']);
+    Route::post('/dictation/check-answer', [ChatGptController::class, 'checkAnswer'])->name('dictation.check-answer');
 });
 
 require __DIR__.'/settings.php';
