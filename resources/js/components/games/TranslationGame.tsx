@@ -165,6 +165,7 @@ export default function TranslationGame({
                 type: 'game',
                 activity: gameType,
                 status: status,
+                value: currentItem?.value.toString() ?? '',
             });
         } catch (error) {
             console.error('Error sending score:', error);

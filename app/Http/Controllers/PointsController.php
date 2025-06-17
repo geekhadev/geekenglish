@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\UserPointsHistory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -83,6 +84,7 @@ class PointsController extends Controller
             'type' => 'required|string',
             'activity' => 'required|string',
             'status' => 'required|string|in:success,failure',
+            'value' => 'required|string',
         ]);
 
         // Get points value from point types table
@@ -94,16 +96,32 @@ class PointsController extends Controller
             return response()->json(['error' => 'Point type not found'], 404);
         }
 
-        // Only award points for successful attempts
-        $points = $validated['status'] === 'success' ? $pointType->points_value : 0;
+        // Check if user has already succeeded with this value for this activity
+        $alreadySucceeded = UserPointsHistory::where([
+            'user_id' => $request->user()->id,
+            'type' => $validated['type'],
+            'activity' => $validated['activity'],
+            'value' => $validated['value'],
+            'status' => 'success',
+        ])->exists();
+
+        // Only count points if it's a success and hasn't been done before
+        $counted = !$alreadySucceeded;
+        $points = ($validated['status'] === 'success' && $counted) ? $pointType->points_value : 0;
 
         $request->user()->pointsHistory()->create([
             'type' => $validated['type'],
             'activity' => $validated['activity'],
             'status' => $validated['status'],
+            'value' => $validated['value'],
+            'counted' => $counted,
             'points' => $points,
         ]);
 
-        return response()->json(['message' => 'Points recorded successfully']);
+        return response()->json([
+            'message' => 'Points recorded successfully',
+            'counted' => $counted,
+            'points' => $points,
+        ]);
     }
 }

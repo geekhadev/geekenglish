@@ -16,6 +16,8 @@ class UserPointsHistory extends Model
         'type',
         'activity',
         'status',
+        'value',
+        'counted',
         'points',
     ];
 
