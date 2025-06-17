@@ -24,7 +24,7 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('qwerty123'),
         ]);
 
-        User::factory()->count(10)->create();
+        // User::factory()->count(10)->create();
 
         $this->call([
             PointTypeSeeder::class,
