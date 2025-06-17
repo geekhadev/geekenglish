@@ -233,7 +233,7 @@ export default function TranslationGame({
         <div className="flex flex-col items-center min-h-full w-full">
             <div className="flex items-center justify-between w-full">
                 <div className="flex flex-col justify-between w-full text-balance">
-                    <h1 className="text-4xl font-bold">{title}</h1>
+                    <h1 className="text-3xl font-bold">{title}</h1>
                     <p className="text-lg text-muted-foreground">{description}</p>
                 </div>
 

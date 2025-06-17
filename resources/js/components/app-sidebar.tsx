@@ -14,8 +14,8 @@ const mainNavItems: NavItem[] = [
         icon: LayoutGrid,
     },
     {
-        title: 'Buscar compañero',
-        href: '#',
+        title: 'Study partners',
+        href: '/apps/users',
         icon: Users,
     },
     {
