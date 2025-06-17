@@ -1,7 +1,7 @@
+import TranslationGame, { type TranslationItem } from '@/components/games/TranslationGame';
 import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem } from '@/types';
 import { Head } from '@inertiajs/react';
-import TranslationGame, { type TranslationItem } from '@/components/games/TranslationGame';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -15,39 +15,39 @@ const breadcrumbs: BreadcrumbItem[] = [
 ];
 
 const verbWords: { [key: string]: string } = {
-    'be': 'ser',
-    'have': 'tener',
-    'do': 'hacer',
-    'say': 'decir',
-    'think': 'pensar',
-    'want': 'querer',
-    'need': 'necesitar',
-    'go': 'ir',
-    'come': 'venir',
-    'see': 'ver',
-    'hear': 'oír',
-    'smell': 'oler',
-    'taste': 'saber',
-    'touch': 'tocar',
-    'live': 'vivir',
-    'work': 'trabajar',
-    'study': 'estudiar',
-    'read': 'leer',
-    'write': 'escribir',
-    'speak': 'hablar',
-    'listen': 'escuchar',
-    'understand': 'entender',
-    'know': 'saber',
-    'find': 'encontrar',
-    'make': 'hacer',
-    'give': 'dar',
-    'take': 'tomar',
-    'put': 'poner',
+    be: 'ser',
+    have: 'tener',
+    do: 'hacer',
+    say: 'decir',
+    think: 'pensar',
+    want: 'querer',
+    need: 'necesitar',
+    go: 'ir',
+    come: 'venir',
+    see: 'ver',
+    hear: 'oír',
+    smell: 'oler',
+    taste: 'saber',
+    touch: 'tocar',
+    live: 'vivir',
+    work: 'trabajar',
+    study: 'estudiar',
+    read: 'leer',
+    write: 'escribir',
+    speak: 'hablar',
+    listen: 'escuchar',
+    understand: 'entender',
+    know: 'saber',
+    find: 'encontrar',
+    make: 'hacer',
+    give: 'dar',
+    take: 'tomar',
+    put: 'poner',
 };
 
 const verbItems: TranslationItem[] = Object.entries(verbWords).map(([value, translation]) => ({
     value: value,
-    translation
+    translation,
 }));
 
 function getRandomVerb(): TranslationItem {

@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use App\Models\User;
 
 class PointsController extends Controller
 {
@@ -44,17 +43,17 @@ class PointsController extends Controller
                             ORDER BY created_at
                         ) as streak
                     ')
-                    ->fromSub(function ($subquery) use ($user) {
-                        $subquery->selectRaw('
+                        ->fromSub(function ($subquery) use ($user) {
+                            $subquery->selectRaw('
                             *,
                             SUM(CASE WHEN status = \'success\' THEN 0 ELSE 1 END) OVER (
                                 PARTITION BY activity
                                 ORDER BY created_at
                             ) as grp
                         ')
-                        ->from('user_points_history')
-                        ->where('user_id', $user->id);
-                    }, 'grouped');
+                                ->from('user_points_history')
+                                ->where('user_id', $user->id);
+                        }, 'grouped');
                 }, 'streaks')
                 ->groupBy('activity')
                 ->get();
@@ -71,7 +70,7 @@ class PointsController extends Controller
                 'pointsByType' => $pointsByType,
                 'pointsByActivity' => $pointsByActivity,
                 'maxStreakByActivity' => $maxStreakByActivity,
-                'recentActivity' => $recentActivity
+                'recentActivity' => $recentActivity,
             ];
         }
 
@@ -91,7 +90,7 @@ class PointsController extends Controller
             ->where('activity', $validated['activity'])
             ->first();
 
-        if (!$pointType) {
+        if (! $pointType) {
             return response()->json(['error' => 'Point type not found'], 404);
         }
 

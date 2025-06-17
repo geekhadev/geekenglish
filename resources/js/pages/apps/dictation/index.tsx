@@ -18,24 +18,24 @@ export default function Index() {
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Dictation Practice - Coming Soon" />
-            <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4 overflow-x-auto justify-center items-center">
-                <div className="max-w-3xl mx-auto space-y-6 text-center">
-                    <div className="flex justify-center mb-6">
-                        <div className="bg-primary/10 p-4 rounded-full">
+            <div className="flex h-full flex-1 flex-col items-center justify-center gap-4 overflow-x-auto rounded-xl p-4">
+                <div className="mx-auto max-w-3xl space-y-6 text-center">
+                    <div className="mb-6 flex justify-center">
+                        <div className="rounded-full bg-primary/10 p-4">
                             <Headphones className="h-12 w-12 text-primary" />
                         </div>
                     </div>
 
-                    <h1 className="text-3xl font-bold mb-4 text-muted-foreground font-handwriting">Dictation Practice - Coming Soon</h1>
+                    <h1 className="mb-4 font-handwriting text-3xl font-bold text-muted-foreground">Dictation Practice - Coming Soon</h1>
 
-                    <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm space-y-4">
+                    <div className="space-y-4 rounded-lg bg-white p-6 shadow-sm dark:bg-gray-800">
                         <p className="text-lg text-balance">
                             Próximamente implementaremos una herramienta interactiva para practicar la escritura a través de dictados en inglés.
                         </p>
 
-                        <div className="grid md:grid-cols-2 gap-4 mt-6">
-                            <div className="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
-                                <div className="flex items-center gap-2 mb-2 justify-center">
+                        <div className="mt-6 grid gap-4 md:grid-cols-2">
+                            <div className="rounded-lg bg-gray-50 p-4 dark:bg-gray-700">
+                                <div className="mb-2 flex items-center justify-center gap-2">
                                     <Headphones className="h-5 w-5 text-primary" />
                                     <h3 className="font-semibold">Audio Generado por IA</h3>
                                 </div>
@@ -44,8 +44,8 @@ export default function Index() {
                                 </p>
                             </div>
 
-                            <div className="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
-                                <div className="flex items-center gap-2 mb-2 justify-center">
+                            <div className="rounded-lg bg-gray-50 p-4 dark:bg-gray-700">
+                                <div className="mb-2 flex items-center justify-center gap-2">
                                     <PenTool className="h-5 w-5 text-primary" />
                                     <h3 className="font-semibold">Evaluación Automática</h3>
                                 </div>

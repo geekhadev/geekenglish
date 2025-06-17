@@ -1,7 +1,7 @@
+import TranslationGame, { type TranslationItem } from '@/components/games/TranslationGame';
 import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem } from '@/types';
 import { Head } from '@inertiajs/react';
-import TranslationGame, { type TranslationItem } from '@/components/games/TranslationGame';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -43,12 +43,12 @@ const numberWords: { [key: number]: string } = {
     70: 'seventy',
     80: 'eighty',
     90: 'ninety',
-    100: 'hundred'
+    100: 'hundred',
 };
 
 const numberItems: TranslationItem[] = Object.entries(numberWords).map(([value, translation]) => ({
     value: parseInt(value),
-    translation
+    translation,
 }));
 
 function getRandomNumber(): TranslationItem {

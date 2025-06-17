@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
 class UserPointsHistory extends Model
 {
@@ -16,7 +16,7 @@ class UserPointsHistory extends Model
         'type',
         'activity',
         'status',
-        'points'
+        'points',
     ];
 
     public function user()

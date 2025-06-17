@@ -11,11 +11,11 @@ interface AuthLayoutProps {
 
 export default function AuthSimpleLayout({ children, title, description }: PropsWithChildren<AuthLayoutProps>) {
     return (
-        <div className="flex min-h-svh flex-col items-center justify-center gap-6 bg-muted dark:bg-background p-6 md:p-10">
+        <div className="flex min-h-svh flex-col items-center justify-center gap-6 bg-muted p-6 md:p-10 dark:bg-background">
             <div className="w-full max-w-sm">
                 <div className="flex flex-col gap-8">
                     <div className="flex flex-col items-center gap-4">
-                        <Link href={route('home')} className="flex items-center gap-2 font-medium mb-6">
+                        <Link href={route('home')} className="mb-6 flex items-center gap-2 font-medium">
                             <AppLogo classNameText="text-4xl" />
                         </Link>
 
@@ -25,9 +25,7 @@ export default function AuthSimpleLayout({ children, title, description }: Props
                         </div>
                     </div>
                     <Card>
-                        <CardContent>
-                            {children}
-                        </CardContent>
+                        <CardContent>{children}</CardContent>
                     </Card>
                 </div>
             </div>

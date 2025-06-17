@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\PointType;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class PointTypeSeeder extends Seeder
@@ -17,17 +16,17 @@ class PointTypeSeeder extends Seeder
             [
                 'type' => 'game',
                 'activity' => 'number',
-                'points_value' => 1
+                'points_value' => 1,
             ],
             [
                 'type' => 'game',
                 'activity' => 'alphabet',
-                'points_value' => 1
+                'points_value' => 1,
             ],
             [
                 'type' => 'game',
                 'activity' => 'verb',
-                'points_value' => 1
+                'points_value' => 1,
             ],
         ];
 

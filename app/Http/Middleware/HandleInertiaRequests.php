@@ -2,12 +2,11 @@
 
 namespace App\Http\Middleware;
 
-use Illuminate\Foundation\Inspiring;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Inertia\Middleware;
 use Tighten\Ziggy\Ziggy;
-use Illuminate\Support\Facades\DB;
-use App\Models\User;
 
 class HandleInertiaRequests extends Middleware
 {
@@ -40,7 +39,7 @@ class HandleInertiaRequests extends Middleware
     public function share(Request $request): array
     {
         $pointsStats = null;
-        if(isset($request->user()->id)) {
+        if (isset($request->user()->id)) {
             $user = User::where('id', $request->user()->id)->with('pointsHistory')->first();
 
             if ($user) {
@@ -72,17 +71,17 @@ class HandleInertiaRequests extends Middleware
                                 ORDER BY created_at
                             ) as streak
                         ')
-                        ->fromSub(function ($subquery) use ($user) {
-                            $subquery->selectRaw('
+                            ->fromSub(function ($subquery) use ($user) {
+                                $subquery->selectRaw('
                                 *,
                                 SUM(CASE WHEN status = \'success\' THEN 0 ELSE 1 END) OVER (
                                     PARTITION BY activity
                                     ORDER BY created_at
                                 ) as grp
                             ')
-                            ->from('user_points_history')
-                            ->where('user_id', $user->id);
-                        }, 'grouped');
+                                    ->from('user_points_history')
+                                    ->where('user_id', $user->id);
+                            }, 'grouped');
                     }, 'streaks')
                     ->groupBy('activity')
                     ->get();
@@ -99,7 +98,7 @@ class HandleInertiaRequests extends Middleware
                     'pointsByType' => $pointsByType,
                     'pointsByActivity' => $pointsByActivity,
                     'maxStreakByActivity' => $maxStreakByActivity,
-                    'recentActivity' => $recentActivity
+                    'recentActivity' => $recentActivity,
                 ];
             }
         }

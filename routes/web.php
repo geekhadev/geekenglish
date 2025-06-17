@@ -1,13 +1,13 @@
 <?php
 
-use App\Http\Controllers\PointsController;
-use App\Http\Controllers\Games\NumberController;
-use App\Http\Controllers\Games\AlphabetController;
-use App\Http\Controllers\Games\VerbController;
-use App\Http\Controllers\Apps\UserController;
-use App\Http\Controllers\Apps\ReadController;
 use App\Http\Controllers\Apps\DictationController;
+use App\Http\Controllers\Apps\ReadController;
+use App\Http\Controllers\Apps\UserController;
 use App\Http\Controllers\Apps\VideoController;
+use App\Http\Controllers\Games\AlphabetController;
+use App\Http\Controllers\Games\NumberController;
+use App\Http\Controllers\Games\VerbController;
+use App\Http\Controllers\PointsController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 

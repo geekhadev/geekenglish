@@ -8,7 +8,7 @@ export default function AppLogo({ classNameIcon, classNameText }: { classNameIco
                 <AppLogoIcon className={cn('size-6', classNameIcon)} />
             </div>
             <div className="ml-1 grid flex-1 text-left text-xl">
-                <span className={cn('mb-0.5 font-semibold text-lime-500 font-handwriting', classNameText)}>geekenglish</span>
+                <span className={cn('mb-0.5 font-handwriting font-semibold text-lime-500', classNameText)}>geekenglish</span>
             </div>
         </>
     );

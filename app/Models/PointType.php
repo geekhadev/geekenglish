@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
 class PointType extends Model
 {
@@ -12,6 +12,6 @@ class PointType extends Model
     protected $fillable = [
         'type',
         'activity',
-        'points_value'
+        'points_value',
     ];
 }

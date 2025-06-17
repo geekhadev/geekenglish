@@ -1,7 +1,7 @@
+import TranslationGame, { type TranslationItem } from '@/components/games/TranslationGame';
 import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem } from '@/types';
 import { Head } from '@inertiajs/react';
-import TranslationGame, { type TranslationItem } from '@/components/games/TranslationGame';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -40,7 +40,7 @@ const alphabetItems: TranslationItem[] = [
     { value: 'W', translation: 'dabliu' },
     { value: 'X', translation: 'eks' },
     { value: 'Y', translation: 'guai' },
-    { value: 'Z', translation: 'zi' }
+    { value: 'Z', translation: 'zi' },
 ];
 
 function getRandomLetter(): TranslationItem {

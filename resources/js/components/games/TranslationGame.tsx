@@ -1,7 +1,7 @@
-import { useState, useEffect, useRef } from 'react';
-import axios from 'axios';
-import { usePage } from '@inertiajs/react';
 import { SharedData } from '@/types';
+import { usePage } from '@inertiajs/react';
+import axios from 'axios';
+import { useEffect, useRef, useState } from 'react';
 
 export interface TranslationItem {
     value: string | number;
@@ -24,7 +24,7 @@ export default function TranslationGame({
     getRandomItem,
     inputPlaceholder,
     timeLimit = 10, // default value if not provided
-    gameType
+    gameType,
 }: TranslationGameProps) {
     const [currentItem, setCurrentItem] = useState<TranslationItem | null>(null);
     const [userAnswer, setUserAnswer] = useState<string>('');
@@ -42,55 +42,55 @@ export default function TranslationGame({
     const page = usePage<SharedData>();
     const { points } = page.props;
 
-    const maxStreak = points?.maxStreakByActivity.find(item => item.activity === gameType)?.max_streak ?? 0;
+    const maxStreak = points?.maxStreakByActivity.find((item) => item.activity === gameType)?.max_streak ?? 0;
 
     const TIME_LIMIT = timeLimit;
     const TIMER_INTERVAL = 1000; // Cambiado a 1 segundo
 
     const successMessages = [
-        "¡Excelente trabajo! 🎉",
-        "¡Perfecto! Eres un genio 🌟",
-        "¡Increíble! Sigues así 💪",
-        "¡Lo has logrado! ¡Espectacular! 🎯",
-        "¡Muy bien! ¡Eres un maestro! 👑",
-        "¡Fantástico! ¡Sigue así! 🚀",
-        "¡Impresionante! ¡Eres brillante! ✨",
-        "¡Lo has hecho perfectamente! 🏆",
-        "¡Increíble precisión! 🎯",
-        "¡Eres un campeón! 🏅",
-        "¡Perfecto! ¡Eres un prodigio! 🌟",
-        "¡Excelente! ¡Sigues mejorando! 📈",
-        "¡Asombroso! ¡Eres un maestro! 🎓",
-        "¡Brillante! ¡Sigue así! 💫",
-        "¡Perfecto! ¡Eres increíble! 🎉",
-        "¡Excelente! ¡Eres un fenómeno! 🌠",
-        "¡Fantástico! ¡Eres un genio! 🧠",
-        "¡Increíble! ¡Eres un maestro! 🎯",
-        "¡Perfecto! ¡Eres brillante! ✨",
-        "¡Excelente! ¡Eres un campeón! 🏆"
+        '¡Excelente trabajo! 🎉',
+        '¡Perfecto! Eres un genio 🌟',
+        '¡Increíble! Sigues así 💪',
+        '¡Lo has logrado! ¡Espectacular! 🎯',
+        '¡Muy bien! ¡Eres un maestro! 👑',
+        '¡Fantástico! ¡Sigue así! 🚀',
+        '¡Impresionante! ¡Eres brillante! ✨',
+        '¡Lo has hecho perfectamente! 🏆',
+        '¡Increíble precisión! 🎯',
+        '¡Eres un campeón! 🏅',
+        '¡Perfecto! ¡Eres un prodigio! 🌟',
+        '¡Excelente! ¡Sigues mejorando! 📈',
+        '¡Asombroso! ¡Eres un maestro! 🎓',
+        '¡Brillante! ¡Sigue así! 💫',
+        '¡Perfecto! ¡Eres increíble! 🎉',
+        '¡Excelente! ¡Eres un fenómeno! 🌠',
+        '¡Fantástico! ¡Eres un genio! 🧠',
+        '¡Increíble! ¡Eres un maestro! 🎯',
+        '¡Perfecto! ¡Eres brillante! ✨',
+        '¡Excelente! ¡Eres un campeón! 🏆',
     ];
 
     const failureMessages = [
-        "¡No te rindas! La próxima vez será mejor 💪",
-        "¡Sigue intentando! El aprendizaje es un proceso 🌱",
-        "¡No te preocupes! Cada error es una oportunidad de aprender 📚",
-        "¡Sigue adelante! La práctica hace al maestro 🎯",
-        "¡No te desanimes! Cada intento te hace más fuerte 💫",
-        "¡Sigue practicando! La constancia es la clave 🔑",
-        "¡No te rindas! El éxito está a la vuelta de la esquina 🎯",
-        "¡Sigue intentando! Cada error te acerca al éxito 🌟",
-        "¡No te desanimes! El aprendizaje es un viaje 🚀",
-        "¡Sigue adelante! La perseverancia es la clave 💪",
-        "¡No te rindas! Cada intento cuenta 📈",
-        "¡Sigue practicando! La mejora es constante 🎓",
-        "¡No te desanimes! El progreso es gradual 🌱",
-        "¡Sigue intentando! La práctica hace la perfección 🎯",
-        "¡No te rindas! Cada error es una lección 📚",
-        "¡Sigue adelante! El éxito está en el camino 🚀",
-        "¡No te desanimes! La constancia es la clave 💫",
-        "¡Sigue practicando! Cada intento te hace mejor 🌟",
-        "¡No te rindas! El aprendizaje es continuo 📈",
-        "¡Sigue intentando! La mejora es constante 🎓"
+        '¡No te rindas! La próxima vez será mejor 💪',
+        '¡Sigue intentando! El aprendizaje es un proceso 🌱',
+        '¡No te preocupes! Cada error es una oportunidad de aprender 📚',
+        '¡Sigue adelante! La práctica hace al maestro 🎯',
+        '¡No te desanimes! Cada intento te hace más fuerte 💫',
+        '¡Sigue practicando! La constancia es la clave 🔑',
+        '¡No te rindas! El éxito está a la vuelta de la esquina 🎯',
+        '¡Sigue intentando! Cada error te acerca al éxito 🌟',
+        '¡No te desanimes! El aprendizaje es un viaje 🚀',
+        '¡Sigue adelante! La perseverancia es la clave 💪',
+        '¡No te rindas! Cada intento cuenta 📈',
+        '¡Sigue practicando! La mejora es constante 🎓',
+        '¡No te desanimes! El progreso es gradual 🌱',
+        '¡Sigue intentando! La práctica hace la perfección 🎯',
+        '¡No te rindas! Cada error es una lección 📚',
+        '¡Sigue adelante! El éxito está en el camino 🚀',
+        '¡No te desanimes! La constancia es la clave 💫',
+        '¡Sigue practicando! Cada intento te hace mejor 🌟',
+        '¡No te rindas! El aprendizaje es continuo 📈',
+        '¡Sigue intentando! La mejora es constante 🎓',
     ];
 
     const getRandomMessage = (isSuccess: boolean) => {
@@ -133,7 +133,7 @@ export default function TranslationGame({
 
                 if (elapsed >= TIMER_INTERVAL) {
                     setTimeLeft((prev) => {
-                        const newTime = prev - (100 / TIME_LIMIT);
+                        const newTime = prev - 100 / TIME_LIMIT;
                         if (newTime <= 0) {
                             setIsTimerRunning(false);
                             handleTimeUp();
@@ -164,7 +164,7 @@ export default function TranslationGame({
             await axios.post(route('points.store'), {
                 type: 'game',
                 activity: gameType,
-                status: status
+                status: status,
             });
         } catch (error) {
             console.error('Error sending score:', error);
@@ -178,7 +178,7 @@ export default function TranslationGame({
         setFeedback(`${getRandomMessage(false)} La respuesta correcta es: ${currentItem.translation}`);
         setHasAnswered(true);
         setIsTimerRunning(false);
-        setScore(prev => ({ ...prev, total: prev.total + 1 }));
+        setScore((prev) => ({ ...prev, total: prev.total + 1 }));
         sendScoreToServer('failure');
     };
 
@@ -192,14 +192,12 @@ export default function TranslationGame({
 
         const isAnswerCorrect = userAnswer.toLowerCase().trim() === currentItem.translation.toLowerCase();
         setIsCorrect(isAnswerCorrect);
-        setFeedback(isAnswerCorrect
-            ? getRandomMessage(true)
-            : `${getRandomMessage(false)} La respuesta correcta es: ${currentItem.translation}`);
+        setFeedback(isAnswerCorrect ? getRandomMessage(true) : `${getRandomMessage(false)} La respuesta correcta es: ${currentItem.translation}`);
         setHasAnswered(true);
         setIsTimerRunning(false);
-        setScore(prev => ({
+        setScore((prev) => ({
             correct: isAnswerCorrect ? prev.correct + 1 : prev.correct,
-            total: prev.total + 1
+            total: prev.total + 1,
         }));
         sendScoreToServer(isAnswerCorrect ? 'success' : 'failure');
     };
@@ -230,31 +228,33 @@ export default function TranslationGame({
     if (!currentItem) return null;
 
     return (
-        <div className="flex flex-col items-center min-h-full w-full">
-            <div className="flex items-center justify-between w-full">
-                <div className="flex flex-col justify-between w-full text-balance">
+        <div className="flex min-h-full w-full flex-col items-center">
+            <div className="flex w-full items-center justify-between">
+                <div className="flex w-full flex-col justify-between text-balance">
                     <h1 className="text-3xl font-bold">{title}</h1>
                     <p className="text-lg text-muted-foreground">{description}</p>
                 </div>
 
-                <div className="flex items-center justify-end gap-2 w-full text-balance">
+                <div className="flex w-full items-center justify-end gap-2 text-balance">
                     {maxStreak > 0 && <p className="text-lg text-muted-foreground">Your record is: {maxStreak}</p>}
-                    <div className="flex justify-between bg-lime-500 text-balance rounded-full p-2 px-4 text-white font-bold">
-                        <p>Score: {score.correct}/{score.total}</p>
+                    <div className="flex justify-between rounded-full bg-lime-500 p-2 px-4 font-bold text-balance text-white">
+                        <p>
+                            Score: {score.correct}/{score.total}
+                        </p>
                     </div>
                 </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-4 w-full h-full">
-                <div className="flex items-center justify-center text-9xl font-bold text-primary border-r">{currentItem.value}</div>
+            <div className="grid h-full w-full grid-cols-2 gap-4">
+                <div className="flex items-center justify-center border-r text-9xl font-bold text-primary">{currentItem.value}</div>
 
-                <div className="flex flex-col gap-4 w-full h-full items-end justify-between">
-                    <div className={`w-full text-4xl text-balance text-center max-w-2xl ${isCorrect ? 'text-lime-500' : 'text-orange-500'}`}>
+                <div className="flex h-full w-full flex-col items-end justify-between gap-4">
+                    <div className={`w-full max-w-2xl text-center text-4xl text-balance ${isCorrect ? 'text-lime-500' : 'text-orange-500'}`}>
                         {feedback}
                     </div>
 
-                    <div className="flex items-center gap-12 w-full">
-                        <div className="flex items-center justify-center gap-4 w-full">
+                    <div className="flex w-full items-center gap-12">
+                        <div className="flex w-full items-center justify-center gap-4">
                             <div className="flex w-full flex-1">
                                 <input
                                     ref={inputRef}
@@ -263,20 +263,20 @@ export default function TranslationGame({
                                     onChange={(e) => setUserAnswer(e.target.value)}
                                     onKeyPress={handleKeyPress}
                                     placeholder={inputPlaceholder}
-                                    className="w-full border-1 p-2 text-center min-h-18 text-2xl"
+                                    className="min-h-18 w-full border-1 p-2 text-center text-2xl"
                                     disabled={hasAnswered}
                                 />
                             </div>
-                            <div className="flex flex-col w-48 text-balance justify-end">
+                            <div className="flex w-48 flex-col justify-end text-balance">
                                 <button
                                     onClick={checkAnswer}
-                                    className="px-6 py-2 min-h-[67px] min-w-48 font-bold text-xl border-1 hover:border-lime-500 cursor-pointer"
+                                    className="min-h-[67px] min-w-48 cursor-pointer border-1 px-6 py-2 text-xl font-bold hover:border-lime-500"
                                     disabled={!hasAnswered && !userAnswer.trim()}
                                 >
                                     {hasAnswered ? 'Next' : 'Check Answer'}
                                 </button>
                                 {!feedback && (
-                                    <div className="flex flex-col gap-2 w-48 text-balance justify-end">
+                                    <div className="flex w-48 flex-col justify-end gap-2 text-balance">
                                         <div className="h-1 w-full rounded-full bg-gray-200">
                                             <div
                                                 className={`h-full rounded-full transition-all duration-100 ${
@@ -293,9 +293,7 @@ export default function TranslationGame({
                 </div>
             </div>
 
-            <div className="absolute bottom-6 right-6 w-[120px]">
-
-            </div>
+            <div className="absolute right-6 bottom-6 w-[120px]"></div>
         </div>
     );
 }
