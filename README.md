@@ -2,6 +2,8 @@
 
 GeekEnglish is a modern web application built with Laravel and React, designed to help users learn English in an interactive and engaging way.
 
+🌐 Live Demo: [https://english.geekha.dev/](https://english.geekha.dev/)
+
 ## 🚀 Technologies Used
 
 ### Backend
