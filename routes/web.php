@@ -33,6 +33,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/dictation', [DictationController::class, 'index'])->name('apps.dictation');
         Route::get('/video', [VideoController::class, 'index'])->name('apps.video');
     });
+
+    Route::post('/users/{user}/friend-request', [UserController::class, 'sendFriendRequest'])->name('users.friend-request');
 });
 
 require __DIR__.'/settings.php';
