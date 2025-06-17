@@ -48,14 +48,14 @@ class User extends Authenticatable
         return $this->hasMany(UserPointsHistory::class);
     }
 
-    public function sentFriendRequests()
+    public function lastFriendRequestBySender()
     {
-        return $this->hasMany(FriendRequest::class, 'sender_id');
+        return $this->hasOne(FriendRequest::class, 'receiver_id')->latest();
     }
 
-    public function receivedFriendRequests()
+    public function lastFriendRequestByReceiver()
     {
-        return $this->hasMany(FriendRequest::class, 'receiver_id');
+        return $this->hasOne(FriendRequest::class, 'sender_id')->latest();
     }
 
     public function friends()

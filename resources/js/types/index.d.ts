@@ -63,5 +63,16 @@ export interface User {
     created_at: string;
     updated_at: string;
     points?: number;
+    last_friend_request_by_receiver?: FriendRequest;
+    last_friend_request_by_sender?: FriendRequest;
     [key: string]: unknown; // This allows for additional properties...
+}
+
+export interface FriendRequest {
+    id: number;
+    sender_id: number;
+    receiver_id: number;
+    status: string;
+    created_at: string;
+    updated_at: string;
 }

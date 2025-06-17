@@ -18,6 +18,11 @@ class DatabaseSeeder extends Seeder
             'email' => 'khalisser@gmail.com',
             'password' => Hash::make('qwerty123'),
         ]);
+        User::factory()->create([
+            'name' => 'Rodolfo Medina',
+            'email' => 'rodolfo@gmail.com',
+            'password' => Hash::make('qwerty123'),
+        ]);
 
         User::factory()->count(10)->create();
 

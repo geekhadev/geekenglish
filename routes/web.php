@@ -35,6 +35,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     });
 
     Route::post('/users/{user}/friend-request', [UserController::class, 'sendFriendRequest'])->name('users.friend-request');
+    Route::post('/users/{requestFriend}/friend-request/accept', [UserController::class, 'acceptFriendRequest'])->name('users.friend-request.accept');
+    Route::post('/users/{requestFriend}/friend-request/reject', [UserController::class, 'rejectFriendRequest'])->name('users.friend-request.reject');
+    Route::post('/users/{requestFriend}/friend-request/remove', [UserController::class, 'removeFriendRequest'])->name('users.friend-request.remove');
 });
 
 require __DIR__.'/settings.php';

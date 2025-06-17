@@ -13,12 +13,7 @@ class UserController extends Controller
 {
     public function index()
     {
-        $users = User::get()->except(Auth::user()->id);
-
-        foreach ($users as $user) {
-            $requestFriendSendByMe = FriendRequest::where('sender_id', Auth::user()->id)->where('receiver_id', $user->id)->latest()->first();
-            $user->requestFriendSendByMe = $requestFriendSendByMe->status ?? null;
-        }
+        $users = User::with('lastFriendRequestBySender', 'lastFriendRequestByReceiver')->get()->except(Auth::user()->id);
 
         return Inertia::render('apps/users/index', [
             'users' => $users,
@@ -48,6 +43,27 @@ class UserController extends Controller
             'receiver_id' => $user->id,
             'status' => 'pending'
         ]);
+
+        sleep(1);
+    }
+
+    public function acceptFriendRequest(Request $request, FriendRequest $requestFriend)
+    {
+        $requestFriend->update(['status' => 'accepted']);
+
+        sleep(1);
+    }
+
+    public function rejectFriendRequest(Request $request, FriendRequest $requestFriend)
+    {
+        $requestFriend->update(['status' => 'rejected']);
+
+        sleep(1);
+    }
+
+    public function removeFriendRequest(Request $request, FriendRequest $requestFriend)
+    {
+        $requestFriend->delete();
 
         sleep(1);
     }

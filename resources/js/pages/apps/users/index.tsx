@@ -17,9 +17,19 @@ const breadcrumbs: BreadcrumbItem[] = [
 
 export default function Index({ users }: { users: User[] }) {
 
-    const friends = users.filter((user) => user.requestFriendSendByMe === 'accepted');
-    const pending = users.filter((user) => user.requestFriendSendByMe === 'pending');
-    const notFriends = users.filter((user) => user.requestFriendSendByMe === null);
+    const requestFriendReceived = {
+        pending: users.filter((user) => user.last_friend_request_by_receiver?.status === 'pending'),
+        accepted: users.filter((user) => user.last_friend_request_by_receiver?.status === 'accepted'),
+        rejected: users.filter((user) => user.last_friend_request_by_receiver?.status === 'rejected'),
+    }
+    const requestFriendSend = {
+        pending: users.filter((user) => user.last_friend_request_by_sender?.status === 'pending'),
+        accepted: users.filter((user) => user.last_friend_request_by_sender?.status === 'accepted'),
+        rejected: users.filter((user) => user.last_friend_request_by_sender?.status === 'rejected'),
+    }
+
+    const friends = users.filter((user) => user.last_friend_request_by_receiver?.status === 'accepted' || user.last_friend_request_by_sender?.status === 'accepted');
+    const otherUsers = users.filter((user) => !user.last_friend_request_by_receiver && !user.last_friend_request_by_sender);
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
@@ -49,12 +59,15 @@ export default function Index({ users }: { users: User[] }) {
                                 Users that are your friends.
                             </p>
                         </div>
-                        {friends.length > 0 ? (
-                        <div className="w-full flex flex-wrap gap-4">
-                            {friends.map((user) => (
-                                <CardUser key={user.id} user={user} />
-                            ))}
-                        </div>
+                        {friends.length > 0 || requestFriendReceived.pending.length > 0 ? (
+                            <div className="w-full flex flex-wrap gap-4">
+                                {friends.map((user) => (
+                                    <CardUser key={user.id} user={user} />
+                                ))}
+                                {requestFriendReceived.pending.map((user) => (
+                                    <CardUser key={user.id} user={user} />
+                                ))}
+                            </div>
                         ) : (
                             <div className="w-full flex flex-wrap gap-4">
                                 <p className="text-sm text-orange-500">
@@ -71,15 +84,30 @@ export default function Index({ users }: { users: User[] }) {
                                 Users that have sent you a friend request.
                             </p>
                         </div>
-                        {pending.length > 0 || notFriends.length > 0 ? (
-                        <div className="w-full flex flex-wrap gap-4">
-                            {pending.map((user) => (
-                                <CardUser key={user.id} user={user} />
-                            ))}
-                            {notFriends.map((user) => (
-                                <CardUser key={user.id} user={user} />
-                            ))}
-                        </div>
+                        {
+                            requestFriendSend.pending.length > 0 ||
+                            requestFriendSend.rejected.length > 0 ||
+                            otherUsers.length > 0 ||
+                            requestFriendReceived.rejected.length > 0 ||
+                            requestFriendSend.rejected.length > 0
+                        ? (
+                            <div className="w-full flex flex-wrap gap-4">
+                                {requestFriendSend.pending.map((user) => (
+                                    <CardUser key={user.id} user={user} />
+                                ))}
+                                {requestFriendSend.rejected.map((user) => (
+                                    <CardUser key={user.id} user={user} />
+                                ))}
+                                {otherUsers.map((user) => (
+                                    <CardUser key={user.id} user={user} />
+                                ))}
+                                {requestFriendReceived.rejected.map((user) => (
+                                    <CardUser key={user.id} user={user} />
+                                ))}
+                                {requestFriendSend.rejected.map((user) => (
+                                    <CardUser key={user.id} user={user} />
+                                ))}
+                            </div>
                         ) : (
                             <div className="w-full flex flex-wrap gap-4">
                                 <p className="text-sm text-muted-foreground">
