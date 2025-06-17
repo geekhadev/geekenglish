@@ -91,12 +91,9 @@ export default function Dashboard() {
                         </Link>
                     </div>
                     <div className="relative overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border">
-                        <Link href="#">
+                        <Link href="/games/verbs">
                             <img src="/games/verbs.png" alt="Verbs" className="w-full h-full object-cover" />
                         </Link>
-                        <div className="absolute inset-0 flex items-end pb-12 justify-center bg-gradient-to-b from-black/40 to-black/100">
-                            <p className="text-white text-2xl font-bold">Coming soon</p>
-                        </div>
                     </div>
                     <div className="relative overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border">
                         <Link href="#">

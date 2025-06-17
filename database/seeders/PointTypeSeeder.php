@@ -24,6 +24,11 @@ class PointTypeSeeder extends Seeder
                 'activity' => 'alphabet',
                 'points_value' => 1
             ],
+            [
+                'type' => 'game',
+                'activity' => 'verb',
+                'points_value' => 1
+            ],
         ];
 
         foreach ($pointTypes as $pointType) {
