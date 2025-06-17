@@ -15,7 +15,7 @@ export default function Dashboard() {
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Dashboard" />
             <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4 overflow-x-auto">
-                <div className="grid auto-rows-min gap-4 md:grid-cols-5">
+                <div className="grid auto-rows-min gap-4 md:grid-cols-6">
                     <div className="relative overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border">
                         <Link href="/games/numbers">
                             <img src="/games/numbers.png" alt="Numbers" className="w-full h-full object-cover" />
@@ -30,7 +30,31 @@ export default function Dashboard() {
                         <Link href="#">
                             <img src="/games/verbs.png" alt="Verbs" className="w-full h-full object-cover" />
                         </Link>
-                        <div className="absolute inset-0 flex items-end pb-12 justify-center bg-black/70 bg-gradient-to-b from-black/0 to-black/90">
+                        <div className="absolute inset-0 flex items-end pb-12 justify-center bg-gradient-to-b from-black/40 to-black/100">
+                            <p className="text-white text-2xl font-bold">Coming soon</p>
+                        </div>
+                    </div>
+                    <div className="relative overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border">
+                        <Link href="#">
+                            <img src="/games/prepositions.png" alt="Prepositions" className="w-full h-full object-cover" />
+                        </Link>
+                        <div className="absolute inset-0 flex items-end pb-12 justify-center bg-gradient-to-b from-black/40 to-black/100">
+                            <p className="text-white text-2xl font-bold">Coming soon</p>
+                        </div>
+                    </div>
+                    <div className="relative overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border">
+                        <Link href="#">
+                            <img src="/games/occupations.png" alt="Occupations" className="w-full h-full object-cover" />
+                        </Link>
+                        <div className="absolute inset-0 flex items-end pb-12 justify-center bg-gradient-to-b from-black/40 to-black/100">
+                            <p className="text-white text-2xl font-bold">Coming soon</p>
+                        </div>
+                    </div>
+                    <div className="relative overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border">
+                        <Link href="#">
+                            <img src="/games/prepositions.png" alt="Prepositions" className="w-full h-full object-cover" />
+                        </Link>
+                        <div className="absolute inset-0 flex items-end pb-12 justify-center bg-gradient-to-b from-black/40 to-black/100">
                             <p className="text-white text-2xl font-bold">Coming soon</p>
                         </div>
                     </div>
