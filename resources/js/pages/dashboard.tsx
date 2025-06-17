@@ -1,5 +1,4 @@
 import { Card, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { PlaceholderPattern } from '@/components/ui/placeholder-pattern';
 import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem } from '@/types';
 import { Head, Link } from '@inertiajs/react';
