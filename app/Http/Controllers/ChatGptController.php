@@ -10,13 +10,12 @@ use App\Models\ApiRequest;
 
 class ChatGptController extends Controller
 {
-    private string $lessons_path = 'lessons/dictation';
-
     public function dictation()
     {
-        $class_name = 'dictation_' . date('Ymd');
-        $text_path = "{$this->lessons_path}/{$class_name}.txt";
-        $audio_path = "{$this->lessons_path}/{$class_name}.mp3";
+        $prefix_path = date('Ymd');
+        $class_name = 'dictation';
+        $text_path = "lessons/{$prefix_path}/{$class_name}.txt";
+        $audio_path = "lessons/{$prefix_path}/{$class_name}.mp3";
 
         if (Storage::disk('public')->exists($text_path) && Storage::disk('public')->exists($audio_path)) {
             return response()->json([
@@ -27,7 +26,7 @@ class ChatGptController extends Controller
 
         $text = $this->getChatCompletion(
             'gpt-3.5-turbo',
-            "Genera un texto, es para un dictado en inglés no uses palabras tan complejas. Que no exceda un minuto de lectura."
+            "Genera un texto para un dictado, en inglés, no uses palabras complejas, debe tener entre 55 y 60 palabras, debe ser una cituación cotidiana."
         );
 
         Storage::disk('public')->put($text_path, $text);
@@ -59,19 +58,26 @@ class ChatGptController extends Controller
 
     private function generateAudio($text, $audio_path)
     {
+        $voices = ['alloy', 'coral', 'echo', 'fable', 'onyx', 'nova', 'shimmer'];
+
         $response = Http::withHeaders([
             'Authorization' => 'Bearer ' . env('OPENAI_API_KEY'),
             'Content-Type' => 'application/json',
         ])->post('https://api.openai.com/v1/audio/speech', [
             'model' => 'tts-1',
             'input' => $text,
-            'voice' => 'alloy',
+            'voice' => $voices[array_rand($voices)],
             'instructions' => 'Speak in a slow, clear voice with a neutral accent. You should speak slowly enough because the audio is for dictation by a 10-year-old.',
         ]);
 
         if ($response->successful()) {
-            if (!Storage::disk('public')->exists($this->lessons_path)) {
-                Storage::disk('public')->makeDirectory($this->lessons_path);
+            $prefix_path = date('Ymd');
+            $class_name = 'dictation';
+            $audio_path = "lessons/{$prefix_path}/{$class_name}.mp3";
+
+            if (!Storage::disk('public')->exists('lessons')) {
+                Storage::disk('public')->makeDirectory('lessons');
+                Storage::disk('public')->makeDirectory('lessons/' . $prefix_path);
             }
 
             Storage::disk('public')->put($audio_path, $response->body());
