@@ -47,7 +47,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/users/{requestFriend}/friend-request/remove', [UserController::class, 'removeFriendRequest'])->name('users.friend-request.remove');
 
     Route::get('/dictation', [ChatGptController::class, 'dictation']);
-    Route::post('/dictation/check-answer', [ChatGptController::class, 'checkAnswer'])->name('dictation.check-answer');
+    Route::post('/dictation/check-answer', [ChatGptController::class, 'checkAnswerDictation'])->name('dictation.check-answer');
+    Route::get('/read', [ChatGptController::class, 'read'])->name('read');
+    Route::post('/read/check-answer', [ChatGptController::class, 'checkAnswerRead'])->name('read.check-answer');
 });
 
 require __DIR__.'/settings.php';
