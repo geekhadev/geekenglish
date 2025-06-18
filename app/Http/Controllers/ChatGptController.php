@@ -92,7 +92,7 @@ class ChatGptController extends Controller
 
         $user = Auth::user();
 
-        if (!ApiRequest::canMakeRequest($user->id, 'check_answer')) {
+        if (!ApiRequest::canMakeRequest($user->id, 'dictation')) {
             return response()->json((object) [
                 'feedback' => 'Has alcanzado el límite de solicitudes para hoy. Intenta mañana.'
             ]);
@@ -120,12 +120,13 @@ class ChatGptController extends Controller
                         - El feedback debe ser positivo.
                         - La evaluación no debe ser textual por ejemplo en el texto original puede decir i am y el usuario puede responder i'm.
                         - Analiza lo que responde el usuario y evita que te intente hacer trampa.
-                        - Si el usuario intenta hacer trampa, responde con un feedback negativo y no le des la respuesta correcta."
+                        - Si el usuario intenta hacer trampa, responde con un feedback negativo y no le des la respuesta correcta.
+                        - La respuesta debe ser un json válido, no puede trae caracteres como ```json porque se va a usar en un javascript."
                 ],
             ],
         ]);
 
-        ApiRequest::recordRequest($user->id, 'check_answer');
+        ApiRequest::recordRequest($user->id, 'dictation');
 
         return $response->json()['choices'][0]['message']['content'] ?? 'Sorry, I could not understand that.';
     }

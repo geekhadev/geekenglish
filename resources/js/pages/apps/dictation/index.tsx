@@ -11,7 +11,7 @@ interface DictationResponse {
     audio: string;
 }
 
-export default function Dictation() {
+export default function Dictation({ api_requests }: { api_requests: { request_count: number } }) {
     const [dictation, setDictation] = useState<DictationResponse | null>(null);
     const [userInput, setUserInput] = useState('');
     const [showText, setShowText] = useState(false);
@@ -20,6 +20,7 @@ export default function Dictation() {
     const [feedback, setFeedback] = useState<string | null>(null);
     const [loadingFeedback, setLoadingFeedback] = useState(false);
     const audioRef = useRef<HTMLAudioElement>(null);
+    const [requests, setRequests] = useState(api_requests?.request_count || 0);
 
     useEffect(() => {
         setIsLoading(true);
@@ -72,6 +73,10 @@ export default function Dictation() {
 
         setFeedback(response.data.feedback);
         setLoadingFeedback(false);
+
+        if (requests < 2) {
+            setRequests(requests + 1);
+        }
     };
 
     const handleClear = () => {
@@ -92,7 +97,7 @@ export default function Dictation() {
                         <div className="flex w-full items-center justify-end gap-2 text-balance">
                             <p className="text-lg text-muted-foreground">AI Attempts</p>
                             <div className="flex justify-between rounded-full bg-lime-500 p-2 px-4 font-bold text-balance text-white">
-                                <p>0/2</p>
+                                <p>{requests}/2</p>
                             </div>
                         </div>
                     </div>
@@ -138,7 +143,7 @@ export default function Dictation() {
 
                         <div className="flex h-full w-full flex-col items-end justify-between gap-4">
                             <div className="w-full max-w-2xl text-center text-xl text-balance px-12 h-full flex items-center justify-center">
-                                {feedback}
+                                {requests > 2 ? 'Alcanzaste el límite de intentos para hoy. Intenta mañana.' : feedback}
                             </div>
 
                             <div className="flex w-full items-center gap-12">
@@ -151,22 +156,24 @@ export default function Dictation() {
                                             placeholder="Type what you hear here..."
                                         />
                                     </div>
-                                    <div className="flex text-balance gap-4">
-                                        <button
-                                            onClick={handleClear}
-                                            className="min-h-[67px] cursor-pointer px-6 py-2 text-xl font-bold hover:text-orange-500"
-                                        >
-                                            Reset my answer
-                                        </button>
-                                        <button
-                                            onClick={loadingFeedback ? undefined : handleCheckAnswer}
-                                            disabled={loadingFeedback}
-                                            className="min-h-[67px] flex items-center justify-center gap-2 min-w-48 cursor-pointer border-1 px-6 py-2 text-xl font-bold hover:border-lime-500 hover:text-lime-500"
-                                        >
-                                            {loadingFeedback ? <Loader2 className="animate-spin" /> : ''}
-                                            {loadingFeedback ? 'Checking...' : 'Check my answer'}
-                                        </button>
-                                    </div>
+                                    {requests < 3 && (
+                                        <div className="flex text-balance gap-4">
+                                            <button
+                                                onClick={handleClear}
+                                                className="min-h-[67px] cursor-pointer px-6 py-2 text-xl font-bold hover:text-orange-500"
+                                            >
+                                                Reset my answer
+                                            </button>
+                                            <button
+                                                onClick={loadingFeedback ? undefined : handleCheckAnswer}
+                                                disabled={loadingFeedback}
+                                                className="min-h-[67px] flex items-center justify-center gap-2 min-w-48 cursor-pointer border-1 px-6 py-2 text-xl font-bold hover:border-lime-500 hover:text-lime-500"
+                                            >
+                                                {loadingFeedback ? <Loader2 className="animate-spin" /> : ''}
+                                                {loadingFeedback ? 'Checking...' : 'Check my answer'}
+                                            </button>
+                                        </div>
+                                    )}
                                 </div>
                             </div>
                         </div>
