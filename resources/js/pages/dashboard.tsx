@@ -39,7 +39,10 @@ export default function Dashboard() {
                             <p className="text-sm text-muted-foreground">Join rooms and chat with real people.</p>
                         </div>
                         {events.map((event) => (
-                            <Card>
+                            <Card className="relative">
+                                <div className="absolute inset-0 flex items-end justify-center bg-gradient-to-b from-black/40 to-black/100 pb-12 rounded-xl">
+                                    <p className="text-2xl font-bold text-white">Coming soon</p>
+                                </div>
                                 <CardHeader className="flex">
                                     <div className="flex justify-between">
                                         <div className="flex flex-col">
