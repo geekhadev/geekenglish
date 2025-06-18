@@ -33,18 +33,10 @@ export default function Dashboard() {
             <Head title="Dashboard" />
             <div className="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4">
                 <div className="grid w-full grid-cols-1 gap-4 md:grid-cols-3">
-                    <div className="relative col-span-1 min-h-[100vh] flex-1 overflow-hidden rounded-xl border border-sidebar-border/70 md:col-span-1 md:min-h-min dark:border-sidebar-border">
-                        <Link href="#">
-                            <img src="/apps/practice.png" alt="Practice" className="h-full w-full object-cover" />
-                        </Link>
-                        <div className="absolute inset-0 flex items-end justify-center bg-gradient-to-b from-black/40 to-black/100 pb-12">
-                            <p className="text-2xl font-bold text-white">Coming soon</p>
-                        </div>
-                    </div>
                     <div className="col-span-1 flex flex-col gap-4 md:col-span-2">
                         <div className="flex flex-col">
-                            <h4 className="text-2xl font-bold">Community events</h4>
-                            <p className="text-sm text-muted-foreground">Join events and chat with real people.</p>
+                            <h4 className="text-2xl font-bold">Rooms for study partners</h4>
+                            <p className="text-sm text-muted-foreground">Join rooms and chat with real people.</p>
                         </div>
                         {events.map((event) => (
                             <Card>
@@ -66,6 +58,14 @@ export default function Dashboard() {
                         {/* <div className="relative flex-1 overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border">
                             <PlaceholderPattern className="absolute inset-0 size-full stroke-neutral-900/20 dark:stroke-neutral-100/20" />
                         </div> */}
+                    </div>
+                    <div className="relative col-span-1 min-h-[100vh] flex-1 overflow-hidden rounded-xl border border-sidebar-border/70 md:col-span-1 md:min-h-min dark:border-sidebar-border">
+                        <Link href="#">
+                            <img src="/apps/practice.png" alt="Practice" className="h-full w-full object-cover" />
+                        </Link>
+                        <div className="absolute inset-0 flex items-end justify-center bg-gradient-to-b from-black/40 to-black/100 pb-12">
+                            <p className="text-2xl font-bold text-white">Coming soon</p>
+                        </div>
                     </div>
                 </div>
 
