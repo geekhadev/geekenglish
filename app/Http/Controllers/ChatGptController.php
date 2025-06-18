@@ -10,13 +10,7 @@ use App\Models\ApiRequest;
 
 class ChatGptController extends Controller
 {
-    private string $api_key;
     private string $lessons_path = 'lessons/dictation';
-
-    public function __construct()
-    {
-        $this->api_key = env('OPENAI_API_KEY');
-    }
 
     public function dictation()
     {
@@ -24,7 +18,6 @@ class ChatGptController extends Controller
         $text_path = "{$this->lessons_path}/{$class_name}.txt";
         $audio_path = "{$this->lessons_path}/{$class_name}.mp3";
 
-        // Check if today's lesson already exists
         if (Storage::disk('public')->exists($text_path) && Storage::disk('public')->exists($audio_path)) {
             return response()->json([
                 'text' => Storage::disk('public')->get($text_path),
@@ -32,16 +25,13 @@ class ChatGptController extends Controller
             ]);
         }
 
-        // Generate new lesson
         $text = $this->getChatCompletion(
             'gpt-3.5-turbo',
             "Genera un texto, es para un dictado en inglés no uses palabras tan complejas. Que no exceda un minuto de lectura."
         );
 
-        // Save text file to public disk
         Storage::disk('public')->put($text_path, $text);
 
-        // Generate and save audio
         $audio_url = $this->generateAudio($text, $audio_path);
 
         return response()->json([
@@ -53,7 +43,7 @@ class ChatGptController extends Controller
     private function getChatCompletion(string $model, string $prompt): string
     {
         $response = Http::withHeaders([
-            'Authorization' => 'Bearer ' . $this->api_key,
+            'Authorization' => 'Bearer ' . env('OPENAI_API_KEY'),
         ])->post('https://api.openai.com/v1/chat/completions', [
             'model' => $model,
             'messages' => [
@@ -70,7 +60,7 @@ class ChatGptController extends Controller
     private function generateAudio($text, $audio_path)
     {
         $response = Http::withHeaders([
-            'Authorization' => 'Bearer ' . $this->api_key,
+            'Authorization' => 'Bearer ' . env('OPENAI_API_KEY'),
             'Content-Type' => 'application/json',
         ])->post('https://api.openai.com/v1/audio/speech', [
             'model' => 'tts-1',
@@ -80,15 +70,12 @@ class ChatGptController extends Controller
         ]);
 
         if ($response->successful()) {
-            // Ensure the directory exists
             if (!Storage::disk('public')->exists($this->lessons_path)) {
                 Storage::disk('public')->makeDirectory($this->lessons_path);
             }
 
-            // Save the audio file to the public disk
             Storage::disk('public')->put($audio_path, $response->body());
 
-            // Return a public URL
             return asset('storage/' . $audio_path);
         }
 
@@ -115,7 +102,7 @@ class ChatGptController extends Controller
         $answer = $request->input('answer');
 
         $response = Http::withHeaders([
-            'Authorization' => 'Bearer ' . $this->api_key,
+            'Authorization' => 'Bearer ' . env('OPENAI_API_KEY'),
         ])->post('https://api.openai.com/v1/chat/completions', [
             'model' => 'gpt-4o',
             'messages' => [
@@ -138,7 +125,6 @@ class ChatGptController extends Controller
             ],
         ]);
 
-        // Record the successful request
         ApiRequest::recordRequest($user->id, 'check_answer');
 
         return $response->json()['choices'][0]['message']['content'] ?? 'Sorry, I could not understand that.';
