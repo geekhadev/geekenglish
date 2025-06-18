@@ -140,7 +140,7 @@ class ChatGptController extends Controller
     public function read()
     {
         $prefix_path = date('Ymd');
-        $class_name = 'dictation';
+        $class_name = 'read';
         $text_path = "lessons/{$prefix_path}/{$class_name}.txt";
 
         if (Storage::disk('public')->exists($text_path)) {
@@ -151,7 +151,7 @@ class ChatGptController extends Controller
 
         $text = $this->getChatCompletion(
             'gpt-3.5-turbo',
-            "Genera un texto para hacer una copia, en inglés, no uses palabras complejas, debe tener entre 100 y 120 palabras, debe ser una situación cotidiana."
+            "Genera un texto para hacer una copia, en inglés, no uses palabras complejas, debe tener entre 40 y 50 palabras, debe ser una situación cotidiana."
         );
 
         Storage::disk('public')->put($text_path, $text);
