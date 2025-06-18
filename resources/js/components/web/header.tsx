@@ -1,10 +1,10 @@
 import { Link, usePage } from '@inertiajs/react'
-import { LogoIcon } from './logo'
 import { Menu, X } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import React from 'react'
 import { cn } from '@/lib/utils'
 import { type SharedData } from '@/types'
+import AppLogo from '../app-logo'
 
 const menuItems = [
     { name: 'Home', href: '/' },
@@ -36,7 +36,7 @@ export const HeroHeader = () => {
                                 href="/"
                                 aria-label="home"
                                 className="flex items-center space-x-2">
-                                <LogoIcon />
+                                <AppLogo />
                             </Link>
 
                             <button

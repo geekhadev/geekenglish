@@ -34,34 +34,26 @@ export const Logo = ({ className, uniColor }: { className?: string; uniColor?: b
     )
 }
 
-export const LogoIcon = ({ className, uniColor }: { className?: string; uniColor?: boolean }) => {
+export const LogoIcon = () => {
     return (
         <svg
-            width="18"
-            height="18"
-            viewBox="0 0 18 18"
-            fill="none"
             xmlns="http://www.w3.org/2000/svg"
-            className={cn('size-5', className)}>
-            <path
-                d="M3 0H5V18H3V0ZM13 0H15V18H13V0ZM18 3V5H0V3H18ZM0 15V13H18V15H0Z"
-                fill={uniColor ? 'currentColor' : 'url(#logo-gradient)'}
-            />
-            <defs>
-                <linearGradient
-                    id="logo-gradient"
-                    x1="10"
-                    y1="0"
-                    x2="10"
-                    y2="20"
-                    gradientUnits="userSpaceOnUse">
-                    <stop stopColor="#9B99FE" />
-                    <stop
-                        offset="1"
-                        stopColor="#2BC8B7"
-                    />
-                </linearGradient>
-            </defs>
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="icon icon-tabler icons-tabler-outline icon-tabler-language"
+        >
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path d="M4 5h7" />
+            <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
+            <path d="M5 9c0 2.144 2.952 3.908 6.7 4" />
+            <path d="M12 20l4 -9l4 9" />
+            <path d="M19.1 18h-6.2" />
         </svg>
     )
 }
