@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ChatGptController;
 use App\Http\Controllers\Apps\DictationController;
+use App\Http\Controllers\Apps\CopyController;
 use App\Http\Controllers\Apps\ReadController;
 use App\Http\Controllers\Apps\UserController;
 use App\Http\Controllers\Apps\VideoController;
@@ -33,9 +34,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('points', [PointsController::class, 'store'])->name('points.store');
 
     Route::prefix('apps')->group(function () {
+        Route::get('/dictation', [DictationController::class, 'index'])->name('apps.dictation');
+        Route::get('/copy', [CopyController::class, 'index'])->name('apps.copy');
         Route::get('/users', [UserController::class, 'index'])->name('apps.users');
         Route::get('/read', [ReadController::class, 'index'])->name('apps.read');
-        Route::get('/dictation', [DictationController::class, 'index'])->name('apps.dictation');
         Route::get('/video', [VideoController::class, 'index'])->name('apps.video');
     });
 
