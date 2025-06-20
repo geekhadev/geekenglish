@@ -200,7 +200,11 @@ export default function TranslationGame({
         const userAnswerCleared = userAnswer.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim();
         const translationCleared = currentItem.translation.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim();
 
-        const isAnswerCorrect = userAnswerCleared === translationCleared || translationCleared.includes(userAnswerCleared) || userAnswerCleared.includes(translationCleared);
+        const presicionValidations = ['alphabet', 'number']
+
+        const isAnswerCorrect = presicionValidations.includes(gameType)
+            ? userAnswerCleared === translationCleared || translationCleared.includes(userAnswerCleared)
+            : userAnswerCleared === translationCleared;
 
         setIsCorrect(isAnswerCorrect);
         setFeedback(isAnswerCorrect ? getRandomMessage(true) : `${getRandomMessage(false)} La respuesta correcta es: ${currentItem.translation}`);
