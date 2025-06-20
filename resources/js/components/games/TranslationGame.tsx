@@ -236,27 +236,29 @@ export default function TranslationGame({
 
     return (
         <div className="flex min-h-full w-full flex-col items-center">
+
             <div className="flex w-full items-center justify-between">
                 <div className="flex w-full flex-col justify-between text-balance">
-                    <h1 className="text-3xl font-bold">{title}</h1>
-                    <p className="text-lg text-muted-foreground">{description}</p>
+                    <h1 className="text-xl md:text-3xl font-bold">{title}</h1>
+                    <p className="text-lg text-muted-foreground hidden md:block">{description}</p>
                 </div>
 
-                <div className="flex w-full items-center justify-end gap-2 text-balance">
-                    {maxStreak > 0 && <p className="text-lg text-muted-foreground">Your record is: {maxStreak}</p>}
-                    <div className="flex justify-between rounded-full bg-lime-500 p-2 px-4 font-bold text-balance text-white">
-                        <p>
-                            Score: {score.correct}/{score.total} - Level: {currentLevel}
-                        </p>
+                <div className="flex flex-col md:flex-row w-full items-end justify-end md:gap-2 text-balance text-sm md:text-lg">
+                    {maxStreak > 0 && <p className="text-muted-foreground">Your record is: {maxStreak}</p>}
+                    <div className="flex justify-between rounded-full bg-lime-500 p-1 md:p-2 px-3 md:px-4 font-bold text-balance text-white">
+                        <p>Score: {score.correct}/{score.total} - Level: {currentLevel}</p>
                     </div>
                 </div>
             </div>
 
-            <div className="grid h-full w-full grid-cols-2 gap-4">
-                <div className="flex items-center justify-center border-r text-9xl font-bold text-primary">{currentItem.value}</div>
+            <div className="grid h-full w-full grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="flex flex-col items-center justify-center md:justify-center md:border-r text-primary md:px-12 gap-4 mt-6 md:mt-0">
+                    <h2 className="text-md text-2xl text-muted-foreground">Write the translation</h2>
+                    <p className="text-balance text-8xl md:text-8xl">{currentItem.value}</p>
+                </div>
 
                 <div className="flex h-full w-full flex-col items-end justify-between gap-4">
-                    <div className={`w-full max-w-2xl text-center text-4xl text-balance ${isCorrect ? 'text-lime-500' : 'text-orange-500'}`}>
+                    <div className={`w-full md:max-w-2xl text-center text-2xl md:text-4xl text-balance md:px-12 h-full flex items-center justify-center ${isCorrect ? 'text-lime-500' : 'text-orange-500'}`}>
                         {feedback}
                     </div>
 
@@ -270,20 +272,20 @@ export default function TranslationGame({
                                     onChange={(e) => setUserAnswer(e.target.value)}
                                     onKeyPress={handleKeyPress}
                                     placeholder={inputPlaceholder}
-                                    className="min-h-18 w-full border-1 p-2 text-center text-2xl"
+                                    className="min-h-18 w-full border-1 p-2 text-center text-xl md:text-2xl"
                                     disabled={hasAnswered}
                                 />
                             </div>
-                            <div className="flex w-48 flex-col justify-end text-balance">
+                            <div className="flex w-36 md:w-48 flex-col justify-end text-balance">
                                 <button
                                     onClick={checkAnswer}
-                                    className="min-h-[67px] min-w-48 cursor-pointer border-1 px-6 py-2 text-xl font-bold hover:border-lime-500"
+                                    className="min-h-[67px] min-w-24 md:min-w-48 cursor-pointer border-1 px-2 md:px-6 py-2 text-lg md:text-xl font-bold hover:border-lime-500"
                                     disabled={!hasAnswered && !userAnswer.trim()}
                                 >
-                                    {hasAnswered ? 'Next' : 'Check Answer'}
+                                    {hasAnswered ? 'Next' : 'Check'}
                                 </button>
                                 {!feedback && (
-                                    <div className="flex w-48 flex-col justify-end gap-2 text-balance">
+                                    <div className="flex w-full flex-col justify-end gap-2 text-balance">
                                         <div className="h-1 w-full rounded-full bg-gray-200">
                                             <div
                                                 className={`h-full rounded-full transition-all duration-100 ${
@@ -299,8 +301,6 @@ export default function TranslationGame({
                     </div>
                 </div>
             </div>
-
-            <div className="absolute right-6 bottom-6 w-[120px]"></div>
         </div>
     );
 }

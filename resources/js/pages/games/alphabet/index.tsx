@@ -21,12 +21,12 @@ export default function Index() {
             <Head title="The Alphabet" />
             <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
                 <TranslationGame
-                    title="The Alphabet"
+                    title="Alphabet"
                     description="Every time you make a mistake you reinforce your learning"
                     items={options}
                     getRandomItem={getRandomOption}
-                    inputPlaceholder="Write the pronunciation"
-                    timeLimit={10}
+                    inputPlaceholder="Example: pi"
+                    timeLimit={1000}
                     gameType="alphabet"
                 />
             </div>
