@@ -19,7 +19,7 @@ export default function Index() {
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="The Alphabet" />
-            <div className="h-full py-4 px-4">
+            <div className="h-svh py-4 px-4">
                 <TranslationGame
                     title="Alphabet"
                     description="Every time you make a mistake you reinforce your learning"
