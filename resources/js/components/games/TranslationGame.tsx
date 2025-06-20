@@ -235,7 +235,7 @@ export default function TranslationGame({
     if (!currentItem) return null;
 
     return (
-        <div className="flex h-full w-full flex-col items-center gap-12 md:gap-0">
+        <div className="flex h-full w-full flex-col items-center gap-8 md:gap-0">
 
             <div className="flex w-full items-center justify-between">
                 <div className="flex w-full flex-col justify-between text-balance">
@@ -258,7 +258,7 @@ export default function TranslationGame({
                 </div>
 
                 <div className="flex w-full flex-col items-end justify-between gap-4">
-                    <div className={`w-full min-h-30 md:min-h-100 md:max-w-2xl text-center text-2xl md:text-4xl text-balance md:px-12 flex items-center justify-center ${isCorrect ? 'text-lime-500' : 'text-orange-500'}`}>
+                    <div className={`flex-1 w-full min-h-24 md:min-h-100 max-w-2xl text-center text-xl md:text-4xl text-balance md:px-12 flex items-center justify-center ${isCorrect ? 'text-lime-500' : 'text-orange-500'}`}>
                         {feedback}
                     </div>
 
@@ -272,30 +272,30 @@ export default function TranslationGame({
                                     onChange={(e) => setUserAnswer(e.target.value)}
                                     onKeyPress={handleKeyPress}
                                     placeholder={inputPlaceholder}
-                                    className="min-h-18 w-full border-1 p-2 text-center text-xl md:text-2xl"
+                                    className="h-[67px] w-full border-1 p-2 text-center text-xl md:text-2xl"
                                     disabled={hasAnswered}
                                 />
                             </div>
                             <div className="flex w-36 md:w-48 flex-col justify-end text-balance">
                                 <button
                                     onClick={checkAnswer}
-                                    className="min-h-[67px] min-w-24 md:min-w-48 cursor-pointer border-1 px-2 md:px-6 py-2 text-lg md:text-xl font-bold hover:border-lime-500"
+                                    className="h-[67px] min-w-24 md:min-w-48 cursor-pointer border-1 px-2 md:px-6 py-2 text-lg md:text-xl font-bold hover:border-lime-500"
                                     disabled={!hasAnswered && !userAnswer.trim()}
                                 >
                                     {hasAnswered ? 'Next' : 'Check'}
-                                </button>
-                                {!feedback && (
-                                    <div className="flex w-full flex-col justify-end gap-2 text-balance">
-                                        <div className="h-1 w-full rounded-full bg-gray-200">
-                                            <div
-                                                className={`rounded-full transition-all duration-100 h-full ${
-                                                    timeLeft > 30 ? 'bg-lime-500' : timeLeft > 10 ? 'bg-yellow-500' : 'bg-red-500'
-                                                }`}
-                                                style={{ width: `${timeLeft}%` }}
-                                            />
+                                    {!feedback && (
+                                        <div className="flex w-full flex-col justify-end gap-2 text-balance">
+                                            <div className="h-1 w-full rounded-full bg-gray-200">
+                                                <div
+                                                    className={`rounded-full transition-all duration-100 h-full ${
+                                                        timeLeft > 30 ? 'bg-lime-500' : timeLeft > 10 ? 'bg-yellow-500' : 'bg-red-500'
+                                                    }`}
+                                                    style={{ width: `${timeLeft}%` }}
+                                                />
+                                            </div>
                                         </div>
-                                    </div>
-                                )}
+                                    )}
+                                </button>
                             </div>
                         </div>
                     </div>

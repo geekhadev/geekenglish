@@ -26,7 +26,7 @@ export default function Index() {
                     items={options}
                     getRandomItem={getRandomOption}
                     inputPlaceholder="Example: pi"
-                    timeLimit={2}
+                    timeLimit={10}
                     gameType="alphabet"
                 />
             </div>
