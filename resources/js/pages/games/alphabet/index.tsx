@@ -10,7 +10,7 @@ const breadcrumbs: BreadcrumbItem[] = [
         href: '/dashboard',
     },
     {
-        title: 'The Alphabet',
+        title: 'Alphabet',
         href: '/games/alphabet',
     },
 ];
