@@ -235,7 +235,7 @@ export default function TranslationGame({
     if (!currentItem) return null;
 
     return (
-        <div className="flex h-full w-full flex-col items-center">
+        <div className="flex h-full w-full flex-col items-center gap-12 md:gap-0">
 
             <div className="flex w-full items-center justify-between">
                 <div className="flex w-full flex-col justify-between text-balance">
@@ -258,7 +258,7 @@ export default function TranslationGame({
                 </div>
 
                 <div className="flex w-full flex-col items-end justify-between gap-4">
-                    <div className={`w-full md:max-w-2xl text-center text-2xl md:text-4xl text-balance md:px-12 flex items-center justify-center ${isCorrect ? 'text-lime-500' : 'text-orange-500'}`}>
+                    <div className={`w-full min-h-30 md:min-h-0 md:max-w-2xl text-center text-2xl md:text-4xl text-balance md:px-12 flex items-center justify-center ${isCorrect ? 'text-lime-500' : 'text-orange-500'}`}>
                         {feedback}
                     </div>
 
@@ -288,7 +288,7 @@ export default function TranslationGame({
                                     <div className="flex w-full flex-col justify-end gap-2 text-balance">
                                         <div className="h-1 w-full rounded-full bg-gray-200">
                                             <div
-                                                className={`rounded-full transition-all duration-100 ${
+                                                className={`rounded-full transition-all duration-100 h-full ${
                                                     timeLeft > 30 ? 'bg-lime-500' : timeLeft > 10 ? 'bg-yellow-500' : 'bg-red-500'
                                                 }`}
                                                 style={{ width: `${timeLeft}%` }}

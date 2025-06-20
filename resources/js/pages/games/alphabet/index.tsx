@@ -19,14 +19,14 @@ export default function Index() {
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="The Alphabet" />
-            <div className="h-dvh py-4 px-4">
+            <div className="md:h-full py-4 px-4">
                 <TranslationGame
                     title="Alphabet"
                     description="Every time you make a mistake you reinforce your learning"
                     items={options}
                     getRandomItem={getRandomOption}
                     inputPlaceholder="Example: pi"
-                    timeLimit={1000}
+                    timeLimit={10}
                     gameType="alphabet"
                 />
             </div>
