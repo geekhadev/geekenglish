@@ -88,13 +88,14 @@ export default function Dictation({ api_requests }: { api_requests: { request_co
             <Head title="Dictation" />
             <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
                 <div className="flex min-h-full w-full flex-col items-center">
+
                     <div className="flex w-full items-center justify-between">
                         <div className="flex w-full flex-col justify-between text-balance">
-                            <h1 className="text-3xl font-bold">Dictation</h1>
+                            <h1 className="text-xl md:text-3xl font-bold">Dictation</h1>
                             <p className="text-lg text-muted-foreground hidden md:block">Listen to the audio and write what you hear.</p>
                         </div>
 
-                        <div className="flex w-full items-center justify-end gap-2 text-balance text-sm md:text-lg">
+                        <div className="flex flex-col md:flex-row w-full items-center justify-end md:gap-2 text-balance text-sm md:text-lg">
                             <p className="text-muted-foreground">AI Attempts</p>
                             <div className="flex justify-between rounded-full bg-lime-500 p-1 md:p-2 px-3 md:px-4 font-bold text-balance text-white">
                                 <p>{requests}/2</p>
