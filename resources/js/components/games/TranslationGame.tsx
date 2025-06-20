@@ -258,7 +258,7 @@ export default function TranslationGame({
                 </div>
 
                 <div className="flex w-full flex-col items-end justify-between gap-4">
-                    <div className={`w-full min-h-30 md:min-h-0 md:max-w-2xl text-center text-2xl md:text-4xl text-balance md:px-12 flex items-center justify-center ${isCorrect ? 'text-lime-500' : 'text-orange-500'}`}>
+                    <div className={`w-full min-h-30 md:min-h-100 md:max-w-2xl text-center text-2xl md:text-4xl text-balance md:px-12 flex items-center justify-center ${isCorrect ? 'text-lime-500' : 'text-orange-500'}`}>
                         {feedback}
                     </div>
 
