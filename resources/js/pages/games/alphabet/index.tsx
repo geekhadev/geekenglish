@@ -18,7 +18,7 @@ const breadcrumbs: BreadcrumbItem[] = [
 export default function Index() {
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="The Alphabet" />
+            <Head title="Alphabet" />
             <div className="md:h-full py-4 px-4">
                 <TranslationGame
                     title="Alphabet"

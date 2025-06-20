@@ -18,14 +18,14 @@ const breadcrumbs: BreadcrumbItem[] = [
 export default function Index() {
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="The Numbers" />
-            <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
+            <Head title="Numbers" />
+            <div className="md:h-full py-4 px-4">
                 <TranslationGame
-                    title="The Numbers"
+                    title="Numbers"
                     description="The important thing is not how well you do it, it's trying."
                     items={options}
                     getRandomItem={getRandomOption}
-                    inputPlaceholder="Write the number in English"
+                    inputPlaceholder="Example: two"
                     timeLimit={15}
                     gameType="number"
                 />

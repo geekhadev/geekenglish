@@ -58,14 +58,14 @@ function getRandomVerb(): TranslationItem {
 export default function Index() {
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="The Verbs" />
-            <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
+            <Head title="Verbs" />
+            <div className="md:h-full py-4 px-4">
                 <TranslationGame
-                    title="The Verbs"
+                    title="Verbs"
                     description="The important thing is not how well you do it, it's trying."
                     items={verbItems}
                     getRandomItem={getRandomVerb}
-                    inputPlaceholder="Write the verb in English"
+                    inputPlaceholder="Example: Caminar"
                     timeLimit={15}
                     gameType="verb"
                 />
