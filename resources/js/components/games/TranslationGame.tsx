@@ -197,7 +197,11 @@ export default function TranslationGame({
             return;
         }
 
-        const isAnswerCorrect = userAnswer.toLowerCase().trim() === currentItem.translation.toLowerCase();
+        const userAnswerCleared = userAnswer.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim();
+        const translationCleared = currentItem.translation.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim();
+
+        const isAnswerCorrect = userAnswerCleared === translationCleared || translationCleared.includes(userAnswerCleared) || userAnswerCleared.includes(translationCleared);
+
         setIsCorrect(isAnswerCorrect);
         setFeedback(isAnswerCorrect ? getRandomMessage(true) : `${getRandomMessage(false)} La respuesta correcta es: ${currentItem.translation}`);
         setHasAnswered(true);
