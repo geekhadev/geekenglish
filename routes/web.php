@@ -8,6 +8,7 @@ use App\Http\Controllers\Apps\UserController;
 use App\Http\Controllers\Apps\VideoController;
 use App\Http\Controllers\Games\AlphabetController;
 use App\Http\Controllers\Games\NumberController;
+use App\Http\Controllers\Games\PrepositionController;
 use App\Http\Controllers\Games\VerbController;
 use App\Http\Controllers\PointsController;
 use Illuminate\Support\Facades\Route;
@@ -28,6 +29,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/numbers', [NumberController::class, 'numbers'])->name('games.numbers');
         Route::get('/alphabet', [AlphabetController::class, 'alphabet'])->name('games.alphabet');
         Route::get('/verbs', [VerbController::class, 'verbs'])->name('games.verbs');
+        Route::get('/prepositions', [PrepositionController::class, 'prepositions'])->name('games.prepositions');
     });
 
     Route::get('points', [PointsController::class, 'index'])->name('points.index');

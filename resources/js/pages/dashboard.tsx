@@ -103,12 +103,9 @@ export default function Dashboard() {
                         </Link>
                     </div>
                     <div className="relative overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border">
-                        <Link href="#">
+                        <Link href="/games/prepositions">
                             <img src="/games/prepositions.png" alt="Prepositions" className="h-full w-full object-cover" />
                         </Link>
-                        <div className="absolute inset-0 flex items-end justify-center bg-gradient-to-b from-black/40 to-black/100 pb-3 md:pb-12">
-                            <p className="text-lg md:text-2xl font-bold text-white">Coming soon</p>
-                        </div>
                     </div>
                     <div className="relative overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border">
                         <Link href="#">
