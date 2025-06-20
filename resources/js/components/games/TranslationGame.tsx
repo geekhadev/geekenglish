@@ -203,8 +203,8 @@ export default function TranslationGame({
         const presicionValidations = ['alphabet', 'number']
 
         const isAnswerCorrect = presicionValidations.includes(gameType)
-            ? userAnswerCleared === translationCleared || translationCleared.includes(userAnswerCleared)
-            : userAnswerCleared === translationCleared;
+            ? userAnswerCleared === translationCleared
+            : userAnswerCleared === translationCleared || translationCleared.includes(userAnswerCleared);
 
         setIsCorrect(isAnswerCorrect);
         setFeedback(isAnswerCorrect ? getRandomMessage(true) : `${getRandomMessage(false)} La respuesta correcta es: ${currentItem.translation}`);
