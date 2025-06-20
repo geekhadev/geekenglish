@@ -235,7 +235,7 @@ export default function TranslationGame({
     if (!currentItem) return null;
 
     return (
-        <div className="flex flex-col items-center w-full " style={{ minHeight: '90dvh', overflow: 'hidden' }}>
+        <div className="flex min-h-dvh w-full flex-col items-center">
 
             <div className="flex w-full items-center justify-between">
                 <div className="flex w-full flex-col justify-between text-balance">
@@ -251,7 +251,7 @@ export default function TranslationGame({
                 </div>
             </div>
 
-            <div className="grid h-full w-full grid-cols-1 md:grid-cols-2 gap-4 overflow-auto">
+            <div className="grid h-full w-full grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="flex flex-col items-center justify-center md:justify-center md:border-r text-primary md:px-12 gap-4 mt-6 md:mt-0">
                     <h2 className="text-md text-2xl text-muted-foreground">Write the translation</h2>
                     <p className="text-balance text-8xl md:text-8xl">{currentItem.value}</p>
