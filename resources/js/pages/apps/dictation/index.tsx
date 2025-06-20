@@ -132,8 +132,8 @@ export default function Dictation({ api_requests }: { api_requests: { request_co
                                         </Button>
                                     </div>
                                     {dictation && (
-                                        <div className={cn("rounded-lg p-6 transition-all duration-300", showText && dictation ? 'opacity-100 block md:block' : 'opacity-0 hidden md:block')}>
-                                            <div className="text-gray-700 text-balance">
+                                        <div className={cn("rounded-lg transition-all duration-300", showText && dictation ? 'opacity-100 block md:block' : 'opacity-0 hidden md:block')}>
+                                            <div className="text-balance">
                                                 {dictation.text}
                                             </div>
                                         </div>
