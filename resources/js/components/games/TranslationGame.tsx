@@ -251,13 +251,13 @@ export default function TranslationGame({
                 </div>
             </div>
 
-            <div className="grid h-full w-full grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="flex-1 grid w-full grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="flex flex-col items-center justify-center md:justify-center md:border-r text-primary md:px-12 gap-4 mt-6 md:mt-0">
                     <h2 className="text-md text-2xl text-muted-foreground">Write the translation</h2>
                     <p className="text-balance text-8xl md:text-8xl">{currentItem.value}</p>
                 </div>
 
-                <div className="flex h-full w-full flex-col items-end justify-between gap-4">
+                <div className="flex w-full flex-col items-end justify-between gap-4">
                     <div className={`w-full md:max-w-2xl text-center text-2xl md:text-4xl text-balance md:px-12 h-full flex items-center justify-center ${isCorrect ? 'text-lime-500' : 'text-orange-500'}`}>
                         {feedback}
                     </div>
