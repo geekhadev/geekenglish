@@ -4,6 +4,18 @@ import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { EyeIcon, Loader2 } from 'lucide-react';
 import { useDictation } from './useDictation';
+import { BreadcrumbItem } from '@/types';
+
+const breadcrumbs: BreadcrumbItem[] = [
+    {
+        title: 'Apps',
+        href: '/dashboard',
+    },
+    {
+        title: 'Dictation',
+        href: '/apps/dictation',
+    },
+];
 
 export default function Dictation({ api_requests }: { api_requests: { request_count: number } }) {
     const {
@@ -34,7 +46,7 @@ export default function Dictation({ api_requests }: { api_requests: { request_co
     }
 
     return (
-        <AppLayout>
+        <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Dictation" />
             <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
                 <div className="flex min-h-full w-full flex-col items-center">

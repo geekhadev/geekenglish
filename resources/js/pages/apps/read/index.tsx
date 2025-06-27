@@ -3,6 +3,18 @@ import AppLayout from '@/layouts/app-layout';
 import { cn } from '@/lib/utils';
 import { Loader2, MicIcon } from 'lucide-react';
 import { useRead } from './useRead';
+import { BreadcrumbItem } from '@/types';
+
+const breadcrumbs: BreadcrumbItem[] = [
+    {
+        title: 'Apps',
+        href: '/dashboard',
+    },
+    {
+        title: 'Read',
+        href: '/apps/read',
+    },
+];
 
 export default function Read({ api_requests }: { api_requests: { request_count: number } }) {
     const {
@@ -28,7 +40,7 @@ export default function Read({ api_requests }: { api_requests: { request_count: 
     }
 
     return (
-        <AppLayout>
+        <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Read" />
             <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
                 <div className="flex min-h-full w-full flex-col items-center">
