@@ -51,8 +51,8 @@ export default function CardUser({ user }: { user: User }) {
     };
 
     return (
-        <Card className="w-50 md:w-72">
-            <CardHeader className="flex flex-row items-center gap-4">
+        <Card className="w-full md:w-72 gap-0 py-2">
+            <CardHeader className="flex flex-row items-center gap-4 py-2">
                 <div className="relative">
                     <Avatar className="size-14">
                         <AvatarImage src={user.avatar || `https://api.dicebear.com/7.x/avataaars/svg?seed=${user.name}`} alt={user.name} />
@@ -67,7 +67,7 @@ export default function CardUser({ user }: { user: User }) {
                     </CardDescription>
                 </div>
             </CardHeader>
-            <CardFooter className="flex justify-between gap-2">
+            <CardFooter className="flex justify-between gap-2 py-2">
                 {!is_friend && req_rec?.status === 'pending' && (
                     <div className="flex w-full flex-col gap-2">
                         <p className="text-xs text-balance text-muted-foreground">

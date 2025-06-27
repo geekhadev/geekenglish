@@ -58,7 +58,21 @@ export default function Index({ users }: { users: User[] }) {
                         {friends.length > 0 || requestFriendReceived.pending.length > 0 ? (
                             <div className="flex w-full flex-wrap gap-4">
                                 {friends.map((user) => (
+                                    <>
                                     <CardUser key={user.id} user={user} />
+                                    <CardUser key={user.id} user={user} />
+                                    <CardUser key={user.id} user={user} />
+                                    <CardUser key={user.id} user={user} />
+                                    <CardUser key={user.id} user={user} />
+                                    <CardUser key={user.id} user={user} />
+                                    <CardUser key={user.id} user={user} />
+                                    <CardUser key={user.id} user={user} />
+                                    <CardUser key={user.id} user={user} />
+                                    <CardUser key={user.id} user={user} />
+                                    <CardUser key={user.id} user={user} />
+                                    <CardUser key={user.id} user={user} />
+                                    <CardUser key={user.id} user={user} />
+                                    </>
                                 ))}
                                 {requestFriendReceived.pending.map((user) => (
                                     <CardUser key={user.id} user={user} />
@@ -81,7 +95,7 @@ export default function Index({ users }: { users: User[] }) {
                         otherUsers.length > 0 ||
                         requestFriendReceived.rejected.length > 0 ||
                         requestFriendSend.rejected.length > 0 ? (
-                            <div className="flex w-full flex-wrap gap-4">
+                            <div className="flex flex-wrap w-full gap-4">
                                 {requestFriendSend.pending.map((user) => (
                                     <CardUser key={user.id} user={user} />
                                 ))}
