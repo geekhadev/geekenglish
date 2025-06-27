@@ -29,7 +29,17 @@ export const options: TranslationItem[] = [
     { value: 'give', level: 1, points: 1, translation: 'dar' },
     { value: 'take', level: 1, points: 1, translation: 'tomar' },
     { value: 'put', level: 1, points: 1, translation: 'poner' },
-]
+    { value: 'keep', level: 1, points: 1, translation: 'mantener' },
+    { value: 'let', level: 1, points: 1, translation: 'dejar' },
+    { value: 'begin', level: 1, points: 1, translation: 'comenzar' },
+    { value: 'end', level: 1, points: 1, translation: 'terminar' },
+    { value: 'show', level: 1, points: 1, translation: 'mostrar' },
+    { value: 'play', level: 1, points: 1, translation: 'jugar' },
+    { value: 'run', level: 1, points: 1, translation: 'correr' },
+    { value: 'walk', level: 1, points: 1, translation: 'caminar' },
+    { value: 'drive', level: 1, points: 1, translation: 'conducir' },
+    { value: 'sleep', level: 1, points: 1, translation: 'dormir' },
+];
 
 export function getRandomOption(): TranslationItem {
     const randomIndex = Math.floor(Math.random() * options.length);
